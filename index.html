@@ -1772,7 +1772,8 @@ Project basis. Real briefs. Worth a chat?
       const card = btn.closest('.card');
       const id = card.id;
       const action = btn.dataset.action;
-      if (state[id] === action) {
+      const wasActive = state[id] === action;
+      if (wasActive) {
         delete state[id];
       } else {
         state[id] = action;
@@ -1789,7 +1790,7 @@ Project basis. Real briefs. Worth a chat?
           body: JSON.stringify({
             timestamp: new Date().toISOString(),
             candidate: candidateEl ? candidateEl.textContent.trim() : '',
-            action: action,
+            action: wasActive ? ('un-' + action) : action,
             week: 'w19'
           })
         }).catch(e => console.log(e));
