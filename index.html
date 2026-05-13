@@ -1766,6 +1766,7 @@ Project basis. Real briefs. Worth a chat?
   applyState();
 
   // Action buttons
+  const LOG_WEBHOOK = 'https://script.google.com/macros/s/AKfycbw1KzT-3RrbCWphvs7dJI5IUg91bs_pHm6-5efiw43-yee1YkAl8sKUzXnsdrCZTIOhjQ/exec';
   document.querySelectorAll('.action-btn[data-action]').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.card');
@@ -1778,6 +1779,23 @@ Project basis. Real briefs. Worth a chat?
       }
       localStorage.setItem(STATE_KEY, JSON.stringify(state));
       applyState();
+
+      try {
+        const candidateEl = card.querySelector('h3');
+        fetch(LOG_WEBHOOK, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            candidate: candidateEl ? candidateEl.textContent.trim() : '',
+            action: action,
+            week: 'w19'
+          })
+        }).catch(e => console.log(e));
+      } catch (e) {
+        console.log(e);
+      }
     });
   });
 
