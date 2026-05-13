@@ -632,6 +632,38 @@
   @media (prefers-color-scheme: dark) {
     .tag-taste { color: #FAC775; }
   }
+  details.opener-collapse {
+    margin-bottom: 16px;
+  }
+  details.opener-collapse summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: border-color 0.2s var(--easeOut);
+  }
+  details.opener-collapse summary::-webkit-details-marker { display: none; }
+  details.opener-collapse summary:hover { border-color: var(--line-strong); }
+  details.opener-collapse summary::after {
+    content: "show \2193";
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  details.opener-collapse[open] summary::after { content: "hide \2191"; }
+  details.opener-collapse[open] summary { margin-bottom: 12px; border-color: var(--line-strong); }
+  details.opener-collapse .opener { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -772,7 +804,7 @@ We're Jhatpat Talkies, hiring an in-house AI Artist — full-time, mid-five figu
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
     </article>
 
 
@@ -845,7 +877,7 @@ We're Jhatpat Talkies (iM8 Battle of the Sexes, Zakir Khan Titli Ki Tarah). Hiri
         <button class="action-btn skip" data-action="skip">Skip</button>
         <button class="action-btn" data-action="reroute">Reroute to freelance</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India search · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India search · 2026-05-05</div>
     </article>
 
     <article class="card" data-slot="ft-artist" data-name="mayur patil" id="mayur-patil">
@@ -906,7 +938,7 @@ Hiring an in-house AI Artist — full-time, mid-five figures, Mumbai-based. Open
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
     </article>
 
   </section>
@@ -985,7 +1017,7 @@ iM8 Battle of the Sexes, HP Omen, the Zakir Khan piece. Editor-first, AI-second 
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
     </article>
 
     <article class="card featured" data-slot="ft-editor" data-name="aman singh" id="aman-singh">
@@ -1050,7 +1082,7 @@ We're Jhatpat Talkies (iM8 BOTS, Zakir Khan, HP Omen). Hiring an Editor + AI Art
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
     </article>
 
     <article class="card" data-slot="ft-editor" data-name="amit m" id="amit-m">
@@ -1114,7 +1146,7 @@ FT Editor + AI Artist role. Mid-five figures. Open to remote/relo from Kolkata. 
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
     </article>
 
     <article class="card" data-slot="ft-editor" data-name="dhruv prajapati" id="dhruv-prajapati">
@@ -1175,7 +1207,7 @@ Jhatpat Talkies — FT Editor + AI Artist, mid-five figures, remote-first or Mum
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
     </article>
   </section>
 
@@ -1255,7 +1287,7 @@ Jhatpat Talkies (iM8 Battle of the Sexes, Zakir Khan, HP Omen) — building out 
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · IG hashtag scrape #aifilmmaker + India filter · 2026-05-05 · apify instagram-hashtag-scraper</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · IG hashtag scrape #aifilmmaker + India filter · 2026-05-05</div>
     </article>
 
     <article class="card featured" data-slot="freelance" data-name="arun yadav" id="arun-yadav">
@@ -1327,7 +1359,7 @@ Jhatpat Talkies (iM8 BOTS, HP Omen, Zakir Khan) — building a freelance bench f
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
     </article>
 
     <article class="card featured" data-slot="freelance" data-name="kanupriya sharma" id="kanupriya">
@@ -1394,7 +1426,7 @@ Building out a freelance bench for ad-film projects. Project-basis. Worth a chat
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · IG snowball from @ranjeyjha caption mentions · 2026-05-05 · apify instagram-post-scraper + profile-scraper</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · IG snowball from @ranjeyjha caption mentions · 2026-05-05</div>
     </article>
 
     <article class="card" data-slot="freelance" data-name="mukul pal" id="mukul-pal">
@@ -1458,7 +1490,7 @@ Project basis. Real briefs. Worth a chat?
         <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05 · harvestapi profile-search-by-services</div>
+      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
     </article>
   </section>
 
@@ -1803,6 +1835,24 @@ Project basis. Real briefs. Worth a chat?
     });
   });
   document.getElementById('search').addEventListener('input', applyFilter);
+
+
+
+  // Wrap each .opener block in collapsible <details>
+  document.querySelectorAll('.opener').forEach(opener => {
+    // Skip if already wrapped
+    if (opener.parentElement && opener.parentElement.classList.contains('opener-collapse')) return;
+    const details = document.createElement('details');
+    details.className = 'opener-collapse';
+    const summary = document.createElement('summary');
+    summary.textContent = 'Pre-drafted opener';
+    details.appendChild(summary);
+    opener.parentNode.insertBefore(details, opener);
+    details.appendChild(opener);
+    // Hide the now-redundant internal label
+    const internalLabel = opener.querySelector('.opener-label .lbl');
+    if (internalLabel) internalLabel.style.display = 'none';
+  });
 
   // Reveal on scroll
   const observer = new IntersectionObserver((entries) => {
