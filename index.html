@@ -232,6 +232,18 @@
   }
   .filter-search::placeholder { color: var(--ink-3); }
   .filter-search:focus { border-bottom-color: var(--accent); }
+  .scan-select {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+  }
 
   /* Slot section */
   .slot {
@@ -253,6 +265,16 @@
     font-size: 13px;
     color: var(--ink-3);
     font-family: var(--mono);
+  }
+
+  /* Reach (reference-tier) section accent */
+  .slot.reach .slot-header {
+    border-bottom-color: var(--accent);
+  }
+  .slot.reach .section-label { color: var(--accent); }
+  .slot.reach .card {
+    border-color: #E6D2A2;
+    background: linear-gradient(0deg, #FBF5E6 0%, var(--surface) 70%);
   }
 
   /* Candidate card */
@@ -297,6 +319,10 @@
   .tag.email-tag { background: var(--success-soft); color: var(--success); }
   .tag.snowball-tag { background: var(--info-soft); color: var(--info); }
   .tag.new-tag { background: var(--ink); color: var(--bg); }
+  .tag.otw-tag { background: var(--success-soft); color: var(--success); }
+  .tag.poach-tag { background: #EDE6F5; color: #6B4FA0; }
+  .tag.free-tag { background: var(--surface-2); color: var(--ink-2); }
+  .tag.band-tag { background: #F6EADF; color: #B5632B; }
 
   .card-head {
     display: flex;
@@ -664,6 +690,95 @@
   details.opener-collapse[open] summary::after { content: "hide \2191"; }
   details.opener-collapse[open] summary { margin-bottom: 12px; border-color: var(--line-strong); }
   details.opener-collapse .opener { margin-bottom: 0; }
+
+  /* Group details (Bench / Partnership / Previous scan) */
+  details.group {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  details.group > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 24px 32px;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s var(--easeOut);
+  }
+  details.group > summary::-webkit-details-marker { display: none; }
+  details.group > summary::after {
+    content: "show \2193";
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  details.group[open] > summary::after { content: "hide \2191"; }
+  details.group[open] > summary { border-bottom-color: var(--line); }
+  details.group > summary .hint {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-family: var(--sans);
+    letter-spacing: normal;
+    text-transform: none;
+    flex: 1;
+  }
+  details.group .group-body { padding: 24px 32px 28px; }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 640px) { .mini-grid { grid-template-columns: 1fr; } }
+  .minicard {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: var(--bg);
+  }
+  .minicard .mn {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .minicard .mr {
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin-bottom: 6px;
+  }
+  .minicard a {
+    font-size: 12px;
+    color: var(--info);
+    border-bottom: 1px solid transparent;
+  }
+  .minicard a:hover { border-bottom-color: var(--info); text-decoration: none; }
+
+  /* Honest framing banner */
+  .honest-banner {
+    background: linear-gradient(0deg, #FBF5E6 0%, var(--surface) 80%);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .honest-banner strong { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -676,22 +791,27 @@
     </div>
     <h1 class="title"><em>Sweep.</em></h1>
     <div class="masthead-meta">
-      <span><strong>Last scan</strong> · 2026-05-08</span>
-      <span><strong>30+</strong> scanned</span>
-      <span><strong>11</strong> surfaced</span>
-      <span><strong>4</strong> verified contacts</span>
-      <span><strong>3</strong> source paths</span>
-      <span><strong>References researched + applied</strong></span>
+      <span><strong>Scan 2</strong> · 2026-05-31</span>
+      <span><strong>8</strong> FT-Artist</span>
+      <span><strong>8</strong> FT-Editor</span>
+      <span><strong>2</strong> reach tier</span>
+      <span><strong>11</strong> bench</span>
+      <span><strong>Tool-tier (Kling · Higgsfield) verified</strong></span>
+      <span><strong>6</strong> open-to-work</span>
     </div>
   </div>
 </header>
 
 <main class="container">
 
+  <section class="honest-banner">
+    <strong>Where the bar actually sits.</strong> The authored-cinematic ceiling (Anurag-class, Indofuturism, festival-validated) is matched only by founder/peer-tier — Anurag's ASTITVA circle, Ranjey's studio, Sagar's framing_black — none of which are hireable into an FT band. The eight FT-Artist and eight FT-Editor candidates below are <strong>calibrated, tool-current bets</strong> — every one of them has a named current stack (Kling / Higgsfield / Seedance / Veo / Runway / Midjourney) and a clean career signal. Their work-quality is judged at interview, not from search results. The reach tier above the eights is <strong>work-verified</strong>: Kanupriya is the one taste-tier name that survived a reels review (real shipped brand AI — boAt, Oakley/Royal Enfield Higgsfield spec ads). Arun's DOP craft is verified; his AI output isn't reel-reviewed yet, listed honestly as credential-strong, taste-unverified.
+  </section>
+
   <section class="intel" style="margin-bottom: 32px;">
-    <p style="font-size: 17px; line-height: 1.7; color: var(--ink); margin: 0 0 12px 0;">Eleven India-based AI creatives, role-tracked. Founders and senior directors filtered out of the FT slots. Three FT-Artist, four FT-Editor, four Freelance — two FT individuals to hire, plus a freelance bench to draw from. Personalised openers below each. Five minutes — approve, edit, skip.</p>
+    <p style="font-size: 17px; line-height: 1.7; color: var(--ink); margin: 0 0 12px 0;">Sixteen India-based AI creatives, role-tracked and gate-verified. Founders, senior directors and keyword-only profiles filtered out of the FT slots. Tool-tier (Kling · Higgsfield · Seedance · Veo · Runway) and craft-into-AI bridges prioritised, calibrated to your reference set. Approve, skip, or copy an opener — five minutes.</p>
     <div style="font-size: 13px; color: var(--ink-2); padding-top: 12px; border-top: 1px solid var(--line); line-height: 1.6;">
-      <strong style="color: var(--ink);">Updated after Friday call:</strong> Discord, Vimeo, IMDb and personal-site source links wired into the source-link grid. Availability-signal scoring ("DM for projects", "freelance", "open to opportunities") added as a first-class rubric dimension. Discord scrape activates next Monday's scan.
+      <strong style="color: var(--ink);">Scan 2 updates:</strong> hireability gate v2 applied at profile-verification stage (catches headline-vs-about contradictions like Mayur Mhaskar's). Tool-keyword search added as a first-class discovery vector — surfaced the cinematic-tool tier (Jaideet, Onkar, Rohan, Aniket) that role-search misses. AI-studio employee sweeps cross-validated bridges (Yaseen, Hritik). Six open-to-work flagged.
     </div>
   </section>
 
@@ -700,89 +820,97 @@
     <h3>Two individuals + a freelance bench</h3>
     <div class="intel-item">
       <h4>FT hires — two individuals only</h4>
-      <p>One AI Artist. One Editor who doubles as AI Artist. Mid-five-figure ₹/month. The candidates surfaced in those two slots are the people we'd put in front of you for individual hire — not a long list, just the strongest matches the current scan produced.</p>
+      <p>One AI Artist. One Editor who doubles as AI Artist. Mid-five-figure ₹/month. The sixteen candidates surfaced across the two FT tracks are calibrated and tool-current — work-quality goes through interview, not the dashboard.</p>
     </div>
     <div class="intel-item">
-      <h4>Freelance bench — 10–15 names over time</h4>
-      <p>This week's four are the start of that bench. As Ranjey's network expands (snowball path), the bench grows weekly without manual hunting. Senior names belong here, not in the FT track.</p>
+      <h4>Reach tier — band/price TBC, work-reviewed</h4>
+      <p>Kanupriya holds (boAt + Higgsfield spec-ad VFX/online edit, work-verified). Arun's craft is verified but his AI reels haven't been reviewed against the bar yet — listed honestly. Both sit above the FT band on price — partnership/freelance conversation, not FT.</p>
     </div>
     <div class="intel-item">
-      <h4>The "small AI startup" cohort is the hidden goldmine</h4>
-      <p>Whilter.ai, Lyzr.ai, Novelty, Bingelabs — early-stage Indian AI startups with mid-career editors and artists already on payroll. Small enough that ₹50–60K with cinema work is competitive, real enough that the candidate has shipped production-grade AI.</p>
+      <h4>Bench, partnership, snowball</h4>
+      <p>11 calibrated bench names (promote on reply). 8 partnership names (above mid-band, useful, not FT). 5 IG snowball seeds taste-aligned to your reference set. Full transparency on every drop with reason.</p>
     </div>
   </section>
 
   <section class="intel" style="margin-bottom: 32px; padding: 18px 24px;">
     <div style="font-size: 13px; color: var(--ink-2); line-height: 1.6;">
-      <strong style="color: var(--ink);">Below the candidates:</strong> the six reference creators we researched, the network seeds extracted for next week, and the drops list (full transparency on who we cut and why). <a href="#references" style="color: var(--info);">Jump to research →</a>
+      <strong style="color: var(--ink);">Below the candidates:</strong> previous scan (May 8 · collapsed), the six reference creators we researched, the network seeds, and the drops list (full transparency on who we cut and why). <a href="#references" style="color: var(--info);">Jump to research →</a>
     </div>
   </section>
 
 
   <nav class="filters">
     <div class="filter-row" id="filters">
-      <button class="filter-btn active" data-filter="all">All · 11</button>
-      <button class="filter-btn" data-filter="ft-artist">FT AI Artist · 3</button>
-      <button class="filter-btn" data-filter="ft-editor">FT Editor + AI · 4</button>
-      <button class="filter-btn" data-filter="freelance">Freelance · 4</button>
+      <select class="scan-select" id="scanSelect" aria-label="Scan">
+        <option value="scan2" selected>Scan 2 · 2026-05-31 (current)</option>
+        <option value="scan1">Scan 1 · 2026-05-08 (previous)</option>
+      </select>
+      <button class="filter-btn active" data-filter="all">All · 18</button>
+      <button class="filter-btn" data-filter="reach">Reach · 2</button>
+      <button class="filter-btn" data-filter="ft-artist">FT-Artist · 8</button>
+      <button class="filter-btn" data-filter="ft-editor">FT-Editor · 8</button>
       <button class="filter-btn" data-filter="approved">Approved</button>
-      <input type="text" class="filter-search" id="search" placeholder="Search by name…" />
+      <input type="text" class="filter-search" id="search" placeholder="Search by name, tool, company…" />
     </div>
   </nav>
 
-  <!-- ==================== FT AI Artist ==================== -->
-  <section class="slot" data-slot="ft-artist">
+  <!-- ==================== Scan 2 · Reach tier (work-reviewed) ==================== -->
+  <section class="slot reach" data-slot="reach" data-scan="scan2">
     <div class="slot-header">
       <div class="slot-header-row">
         <div>
-          <div class="section-label">Tier A · FT track</div>
-          <h2 class="section-title">FT AI Artist</h2>
+          <div class="section-label">★ Reach tier · work-reviewed</div>
+          <h2 class="section-title">Above the eights</h2>
         </div>
-        <span class="slot-count">03 · ranked by taste alignment</span>
+        <span class="slot-count">02 · band / price TBC</span>
       </div>
     </div>
 
+    <p style="font-size: 14px; color: var(--ink-2); line-height: 1.7; margin: -8px 0 24px 0;"><strong style="color: var(--ink);">Work-reviewed.</strong> I pulled their actual reels and scored against your benchmark. Most of the original taste-tier did <strong style="color: var(--ink);">not</strong> survive: Sumit (@young_stan07) = viral fan-edits, Prasad Gori = tool demos/tutorials, Kedar = hobbyist VFX — all moved to bench/partnership or dropped. <strong style="color: var(--ink);">Only Kanupriya holds</strong> the taste tier with real shipped brand AI. Arun is credential-strong but his AI work isn't reel-reviewed yet, listed honestly. The authored Anurag-class bar is matched only by founder/peer-tier — not hireable.</p>
 
-    <article class="card" data-slot="ft-artist" data-name="mayur mhaskar" id="mayur-mhaskar">
+    <article class="card" data-slot="reach" data-scan="scan2" data-week="w22" data-name="kanupriya sharma vfx higgsfield boat oakley royal enfield" id="s2-kanupriya">
       <div class="card-tags">
-        <span class="tag-taste">Taste-aligned (story-first · Anurag-archetype)</span>
+        <span class="tag-taste">★ Work-verified · taste-tier holds</span>
+        <span class="tag band-tag">Band TBC · freelance</span>
       </div>
       <div class="card-head">
-        <div class="avatar">MM</div>
+        <div class="avatar">KS</div>
         <div class="card-name">
-          <h3>Mayur Mhaskar</h3>
-          <div class="card-role">Generative AI Artist · LLM Agent Integration · Content/Screen Writer · Mumbai</div>
+          <h3>Kanupriya Sharma</h3>
+          <div class="card-role">AI VFX / Online Editor · brand ad productions · Mumbai · @knuvisuals</div>
         </div>
-        <div class="card-score">25 / 30</div>
+        <div class="card-score">27 / 30</div>
       </div>
-      <p class="card-elevator">Mumbai-based generative AI artist with screenwriter and LLM-agent fluency. Multi-skill stack means lower replacement risk — he can write the brief, build the agent, craft the visual.</p>
+      <p class="card-elevator">The one taste-tier name that survived a full reels review. Real shipped brand AI — Higgsfield spec ads (Oakley, Royal Enfield), online editor / VFX hand on Ranjey's boAt campaigns. Craft-tier, genuinely good for brand AI.</p>
       <div class="card-meta">
         <div class="meta-item">
           <label>Tools shipped</label>
-          <div class="value">Generative AI, LLM Integration, Content Writing, Screenwriting</div>
+          <div class="value">VFX · AI workflows · Higgsfield</div>
         </div>
         <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">567 (mid-career signal)</div>
+          <label>Brand work — verified</label>
+          <div class="value">boAt Malaysia · boAt Nirvana · Oakley + Royal Enfield Higgsfield spec ads · Snapdragon</div>
         </div>
         <div class="meta-item">
-          <label>Outreach channel</label>
-          <div class="value">LinkedIn DM (no email returned)</div>
+          <label>Status</label>
+          <div class="value">Freelance · works on Ranjey Jha productions</div>
         </div>
         <div class="meta-item">
           <label>Source links</label>
           <div class="value source-links">
-            <a href="https://www.linkedin.com/in/mayur-mhaskar" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.instagram.com/knuvisuals" target="_blank" rel="noopener">Instagram ↗</a>
+            <a href="https://www.instagram.com/reel/DYUcMvhMmT8/" target="_blank" rel="noopener">Oakley spec ad ↗</a>
+            <a href="https://behance.net/knuvisuals" target="_blank" rel="noopener">Behance ↗</a>
           </div>
         </div>
       </div>
-      <p class="card-why">Story-first signal in his headline (screenwriter title) is exactly how Jhatpat frames its work. Mumbai-local is a logistics win. The LLM-agent fluency is a bonus — it means he can build internal tooling, not just operate it.</p>
+      <p class="card-why">Not the Anurag authored-narrative bar — real and reliable for brand AI. VFX hand on AI work is the layer Jhatpat ships and is hard to find separately. Worth pricing into a project-basis bench, not the FT track.</p>
       <div class="card-score-breakdown">
+        <span>Taste <strong>5</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Shipped <strong>5</strong></span>
         <span>Tools <strong>4</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>4</strong></span>
-        <span>Shipped <strong>3</strong></span>
+        <span>Geo <strong>5</strong></span>
         <span>Outreach <strong>4</strong></span>
         <span>India <strong>✓</strong></span>
       </div>
@@ -791,54 +919,662 @@
           <span class="lbl">Pre-drafted opener</span>
           <button class="copy-btn" data-copy>Copy</button>
         </div>
-        <div class="opener-text">Hey Mayur.
+        <div class="opener-text">Kanupriya, hi.
 
-Saw the Generative AI + LLM agent + screenwriting combo — rare to find someone who can hold all three layers without one going thin.
+The VFX/online-edit hand on the boAt + Higgsfield spec ads is exactly the brand-AI craft Jhatpat ships. Building a bench for ad-film projects, project basis.
 
-We're Jhatpat Talkies, hiring an in-house AI Artist — full-time, mid-five figures, Mumbai-based. The screenwriter angle especially fits how we work. Worth a 20-min chat?
+How do you usually work and how do you typically price?
 
 — Kunal</div>
       </div>
       <div class="card-actions">
         <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
+      <div class="source-trace"><strong>Trace:</strong> Scan 2 · IG reels reviewed against benchmark + Behance + Source 8 carry-forward · 2026-05-31</div>
     </article>
 
-
-    <article class="card featured" data-slot="ft-artist" data-name="khushi khorwal" id="khushi-khorwal">
+    <article class="card" data-slot="reach" data-scan="scan2" data-week="w22" data-name="arun yadav dop bulbule films higgsfield kling seedance imdb" id="s2-arun">
       <div class="card-tags">
-        <span class="tag featured-tag">Surfaced as priority</span>
+        <span class="tag band-tag">Band TBC · AI work unreviewed</span>
+        <span class="tag" style="background:#FCEBEB;color:#791F1F;">Verify reels before promoting</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">AY</div>
+        <div class="card-name">
+          <h3>Arun Yadav</h3>
+          <div class="card-role">DOP · Higgsfield/Kling/Seedance specialist · Bulbule Films · Mumbai</div>
+        </div>
+        <div class="card-score">24 / 30</div>
+      </div>
+      <p class="card-elevator">DOP craft is real (IMDb credits going back to 2016). His AI output has <strong>not</strong> been reviewed against the bar yet — listed honestly as credential-strong, taste-unverified.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Higgsfield Cinema Studio · Kling AI · Seedance 2.0 + DOP craft</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand / film credits</label>
+          <div class="value">IMDb live-action feature credits — <em>Better Life Foundation</em> (2016), <em>Vintage Boys</em> (2021), <em>The Shameless</em> (2024). AI work not yet reel-reviewed.</div>
+        </div>
+        <div class="meta-item">
+          <label>Status</label>
+          <div class="value">Senior DOP at Bulbule Films (freelance)</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/arunyadavdop" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.imdb.com/name/nm10161040/" target="_blank" rel="noopener">IMDb ↗</a>
+            <a href="https://www.facebook.com/arunyadavdop/" target="_blank" rel="noopener">Facebook (credits) ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">A real DOP foundation plus a named current stack is the <em>ordering</em> Jhatpat hires for (craft first, AI layered on). But: above the mid-five-fig FT band on price, so partnership/freelance. And the AI output needs a reels review before we promote.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>?</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Shipped <strong>4</strong> (live-action)</span>
+        <span>Tools <strong>5</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Arun, hi.
+
+A real DOP foundation plus Higgsfield/Kling is the ordering Jhatpat hires for. Building a freelance bench for ad-film projects.
+
+Could you share a couple of recent AI pieces? Keen to see the work before talking shape and pricing.
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Scan 1 carry-forward · Scan 2 Source 7 rerank → Partnership · 2026-05-31</div>
+    </article>
+
+  </section>
+
+  <!-- ==================== Scan 2 · FT-Artist ==================== -->
+  <section class="slot" data-slot="ft-artist" data-scan="scan2">
+    <div class="slot-header">
+      <div class="slot-header-row">
+        <div>
+          <div class="section-label">Tier A · FT track</div>
+          <h2 class="section-title">FT · AI Artist</h2>
+        </div>
+        <span class="slot-count">08 · tool-tier &amp; craft-into-AI bridges</span>
+      </div>
+    </div>
+
+    <p style="font-size: 14px; color: var(--ink-2); line-height: 1.7; margin: -8px 0 24px 0;">Calibrated to your reference aesthetic. Open-to-work flagged first; craft-into-AI bridges (CG/VFX/3D foundations) prioritised over keyword-only profiles.</p>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="rakesh m pujari behance philips cg ai mumbai" id="s2-rakesh-pujari">
+      <div class="card-tags">
+        <span class="tag featured-tag">The proven archetype</span>
+        <span class="tag-taste">Craft-into-AI bridge · CG → AI</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">RP</div>
+        <div class="card-name">
+          <h3>Rakesh M Pujari</h3>
+          <div class="card-role">AI Visual Generative Artist × CGi (modelling / texturing / lookdev) · Mumbai</div>
+        </div>
+        <div class="card-score">28 / 30</div>
+      </div>
+      <p class="card-elevator">The CG-into-AI lookdev pick that landed in round 1. Visible Philips brand work on Behance. The bridge Jhatpat is built on.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Generative AI · CG (modelling · texturing · lookdev)</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work — verified</label>
+          <div class="value">Philips (visible on Behance)</div>
+        </div>
+        <div class="meta-item">
+          <label>Status</label>
+          <div class="value">FT or freelance — Mumbai, CG studio</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.behance.net/rakeshmpujari" target="_blank" rel="noopener">Behance ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Senior CG-into-AI archetype with visible brand work — the anti-generic bridge that keeps AI output from looking like AI. Mumbai-local. Behance shows the work; LinkedIn confirms the career signal.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>5</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Shipped <strong>5</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>3</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Hey Rakesh.
+
+The CG-into-AI lookdev work — the Philips set especially — is exactly the bridge we're building at Jhatpat. In-house AI Artist, full-time, Mumbai.
+
+Worth 20 min?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 5 · Behance Mumbai geo-search via Chrome · 2026-05-30</div>
+    </article>
+
+    <article class="card featured" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="kshitija adhav method productions nift loopdice runway midjourney kling mumbai" id="s2-kshitija">
+      <div class="card-tags">
+        <span class="tag otw-tag">★ Open to work</span>
+        <span class="tag-taste">Kunal reference · taste-anchor</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">KA</div>
+        <div class="card-name">
+          <h3>Kshitija Adhav</h3>
+          <div class="card-role">AI Filmmaker · Freelancer · building loopdice.media · Mumbai</div>
+        </div>
+        <div class="card-score">27 / 30</div>
+      </div>
+      <p class="card-elevator">On your reference set. Open-to-work AI filmmaker, NIFT Mumbai, story-first voice. Rarest + most valuable signal in the entire scan.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Runway · Midjourney · Kling</div>
+        </div>
+        <div class="meta-item">
+          <label>Company / project</label>
+          <div class="value">Method Productions India · building loopdice.media</div>
+        </div>
+        <div class="meta-item">
+          <label>School</label>
+          <div class="value">NIFT Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/kshitija-adhav-4233a7263" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.loopdice.media" target="_blank" rel="noopener">loopdice.media ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Story-first AI filmmaker with NIFT design grounding and a current named stack. Open-to-work is a 90-day signal we don't get often. Building her own studio (loopdice) — that's narrative ambition, not tool fluency for its own sake.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>5</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>✓</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Kshitija, hi.
+
+Saw you're building loopdice and open to work. We're hiring an in-house AI Filmmaker at Jhatpat Talkies — Mumbai, full-time, mid-five figures.
+
+Your story-first approach is the fit. Quick call?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Kunal reference + Source 1 verification at Method Productions · 2026-05-30</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="hritik vishwakarma gratiaverse 3d generalist environment artist generative ai mumbai" id="s2-hritik">
+      <div class="card-tags">
+        <span class="tag otw-tag">★ Open to work</span>
+        <span class="tag">Cross-validated at AI studio</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">HV</div>
+        <div class="card-name">
+          <h3>Hritik Vishwakarma</h3>
+          <div class="card-role">3D Generalist · Environment Artist · Video Editor · Generative AI · Gratiaverse · Mumbai</div>
+        </div>
+        <div class="card-score">26 / 30</div>
+      </div>
+      <p class="card-elevator">Open-to-work, craft-into-AI bridge, already working at an AI studio. The kind of cross-functional foundation that keeps AI output from feeling generic.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">3D modelling · texturing · lighting · simulation + Generative AI</div>
+        </div>
+        <div class="meta-item">
+          <label>Company</label>
+          <div class="value">Gratiaverse (AI studio)</div>
+        </div>
+        <div class="meta-item">
+          <label>Status</label>
+          <div class="value">Open to work · Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://in.linkedin.com/in/hritik-vishwakarma-743b44158" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Cross-validated twice: harvestapi LinkedIn profile-search surfaced him, and the AI-studio employee sweep on Gratiaverse independently confirmed he's a real practitioner doing AI work. Not a keyword match.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>✓</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Hey Hritik.
+
+The 3D/environment foundation under your Gen-AI work is exactly what keeps AI output from feeling generic. Open to work caught my eye.
+
+In-house AI Artist at Jhatpat, Mumbai, full-time. Worth a chat?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 11 (LinkedIn profile-search bridges) + Source 14 (Gratiaverse studio sweep) · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="yaseen shaikh blackhole infiverse maac midjourney hailuo runway blender unreal mumbai" id="s2-yaseen">
+      <div class="card-tags">
+        <span class="tag otw-tag">★ Open to work</span>
+        <span class="tag">Cross-validated at AI studio</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">YS</div>
+        <div class="card-name">
+          <h3>Yaseen Shaikh</h3>
+          <div class="card-role">3D Artist · VFX Artist · AI Designer · BlackHole Infiverse · Mumbai</div>
+        </div>
+        <div class="card-score">25 / 30</div>
+      </div>
+      <p class="card-elevator">AI Video Creator at an AI studio. Open to FT, band-friendly. The Blender/Unreal base is the anti-keyword signal.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Midjourney · Hailuo · RunwayML · Premiere + Blender · Unreal</div>
+        </div>
+        <div class="meta-item">
+          <label>Company</label>
+          <div class="value">BlackHole Infiverse (AI studio)</div>
+        </div>
+        <div class="meta-item">
+          <label>School</label>
+          <div class="value">MAAC</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://in.linkedin.com/in/yaseen-shaikh-43a65025a" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Surfaced via tool-search and independently re-surfaced via the BlackHole studio sweep — when two discovery methods agree, the practitioner is real. Band-friendly + open + Mumbai is the cleanest combination in this scan.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>3</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>✓</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Yaseen, hi.
+
+Your AI video work at BlackHole plus the Blender/Unreal base is a strong combo. We're hiring an AI Artist at Jhatpat Talkies — Mumbai, full-time.
+
+You're open to work — worth 20 min?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 11 (tool-search bridges) + Source 14 (BlackHole studio sweep) · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="prateek arora indofuturism horror bang bang mediacorp mumbai" id="s2-prateek">
+      <div class="card-tags">
+        <span class="tag poach-tag">Poach · taste-aligned to Anurag</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">PA</div>
+        <div class="card-name">
+          <h3>Prateek Arora</h3>
+          <div class="card-role">AI Art · Indofuturism · Horror · BANG BANG Mediacorp · Mumbai</div>
+        </div>
+        <div class="card-score">26 / 30</div>
+      </div>
+      <p class="card-elevator">The closest profile to the Anurag/Indofuturism aesthetic on your reference set. Story-led AI art, Mumbai. Taste-axis pick.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Generative AI · narrative/Indofuturism</div>
+        </div>
+        <div class="meta-item">
+          <label>Company</label>
+          <div class="value">BANG BANG Mediacorp</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/prxteek" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.instagram.com/prxteek" target="_blank" rel="noopener">Instagram ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Indofuturism + horror is exactly the cultural-specificity ambition Anurag's ASTITVA/Vyomnagar embodies — the bar that isn't matched anywhere else in the hireable tier. Surfaced via the studio sweep, taste-axis lead.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>5</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Prateek.
+
+The Indofuturism work is the closest thing I've seen to the aesthetic we're chasing at Jhatpat. Building an in-house AI team in Mumbai.
+
+Worth a conversation about what you'd be open to?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 14 · AI-studio employee sweep · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="kartikey sachan vfx 3d unreal ai filmmaker delhi socioclout" id="s2-kartikey">
+      <div class="card-tags">
+        <span class="tag otw-tag">★ Open to work</span>
+        <span class="tag">Triple bridge · VFX+3D+AI+Unreal</span>
+        <span class="tag" style="background:#F6EADF;color:#B5632B;">Relocation</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">KS</div>
+        <div class="card-name">
+          <h3>Kartikey Sachan</h3>
+          <div class="card-role">VFX Artist · 3D Artist · AI Filmmaker · Unreal Engine · SocioClout · Delhi (relo)</div>
+        </div>
+        <div class="card-score">26 / 30</div>
+      </div>
+      <p class="card-elevator">Triple bridge in one person (VFX + 3D + AI + Unreal). Open to work. London startup archviz + ad-film experience. Relocation conversation needed.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">VFX · 3D · Unreal · video editing · environment design</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">London startup archviz · ad films</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Delhi · open to Mumbai relocation</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/kartikey-sachan-1a0b301b4" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Cross-functional foundation is rare; VFX + 3D + Unreal + AI in one person is rarer. Ad-film experience plus open-to-work plus relo-willing makes him hireable end-to-end. Worth the geo conversation.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>✓</strong></span>
+        <span>Geo <strong>3</strong> (relo)</span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Hey Kartikey.
+
+VFX + 3D + Unreal + AI in one person is rare. We're hiring an AI Artist at Jhatpat Talkies — Mumbai (relo supported).
+
+You're open to work — want to talk?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 14 · AI-studio employee sweep · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="megha agrawal scopely concept artist ai midjourney scenario bengaluru relocation" id="s2-megha">
+      <div class="card-tags">
+        <span class="tag otw-tag">★ Open to work</span>
+        <span class="tag">Shipped scale · games</span>
+        <span class="tag" style="background:#F6EADF;color:#B5632B;">Relocation</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">MA</div>
+        <div class="card-name">
+          <h3>Megha Agrawal</h3>
+          <div class="card-role">Concept Artist · AI Artist · ex-Scopely · Bengaluru (relo)</div>
+        </div>
+        <div class="card-score">25 / 30</div>
+      </div>
+      <p class="card-elevator">Open-to-work concept/AI artist with shipped scale (mobile titles, millions of users). Adjacent industry (game art) but strong AI-pipeline fluency.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Photoshop · Procreate · Midjourney · Scenario · AI pipelines</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">Mobile titles at Scopely · millions of users</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Bengaluru · open to Mumbai relocation</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/megha-agrawal-1b81aa82" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Game-art-into-ad-film is the right adjacency — Scopely runs AI-assisted concept pipelines at production discipline most studios haven't matched. Open + relo + tools current = real candidate, not a stretch.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>✓</strong></span>
+        <span>Geo <strong>3</strong> (relo)</span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Megha, hi.
+
+Your AI-assisted concept pipeline at Scopely is exactly the production discipline we want at Jhatpat. AI Artist role, Mumbai (relo supported).
+
+You're open — quick call?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 14 · AI-studio employee sweep · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-artist" data-scan="scan2" data-week="w22" data-name="rohit tyagi 3d generative ai brand films cinema c4d blender runway sora kling elevenlabs" id="s2-rohit">
+      <div class="card-tags">
+        <span class="tag free-tag">Freelance · 6+ yr craft</span>
+        <span class="tag-taste">Anti-generic bridge</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">RT</div>
+        <div class="card-name">
+          <h3>Rohit Tyagi</h3>
+          <div class="card-role">Bridging traditional 3D &amp; Generative AI · Brand Films · 6+ yr · India</div>
+        </div>
+        <div class="card-score">26 / 30</div>
+      </div>
+      <p class="card-elevator">"AI as another brush, with 6 years of 3D underneath." Brand films for global agencies and Indian brands. The craft-into-AI bridge thesis in one line.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Midjourney · Runway · Sora · Kling · ElevenLabs + C4D · Blender · After Effects · Premiere · DaVinci</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">Global agencies + Indian brands</div>
+        </div>
+        <div class="meta-item">
+          <label>Status</label>
+          <div class="value">Freelance · India (confirm city)</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/irohittyagi" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">6+ years of editing/3D under the AI layer is the ordering that survives a Jhatpat brief. Tools stack reads cinematic, not viral. City needs confirmation at first call.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>5</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>3</strong> (confirm)</span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Rohit.
+
+"AI as another brush, with 6 years of 3D underneath" is exactly our hiring thesis at Jhatpat. AI Artist / brand films, Mumbai or hybrid.
+
+Worth a chat about fit?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 15a · tool-keyword search (Kling / Runway / Sora) · 2026-05-31</div>
+    </article>
+
+  </section>
+
+  <!-- ==================== Scan 2 · FT-Editor ==================== -->
+  <section class="slot" data-slot="ft-editor" data-scan="scan2">
+    <div class="slot-header">
+      <div class="slot-header-row">
+        <div>
+          <div class="section-label">Tier A · FT track</div>
+          <h2 class="section-title">FT · AI Editor</h2>
+        </div>
+        <span class="slot-count">08 · editor-first with named current AI stacks</span>
+      </div>
+    </div>
+
+    <p style="font-size: 14px; color: var(--ink-2); line-height: 1.7; margin: -8px 0 24px 0;">Editor-first by training with a named current AI stack layered on. End-to-end ad-pipeline operators prioritised over single-tool prompt-runners.</p>
+
+    <article class="card featured" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="khushi khorwal novelty ef-backed ai filmmaker delhi" id="s2-khushi">
+      <div class="card-tags">
+        <span class="tag poach-tag">Poach · EF-backed AI startup</span>
         <span class="tag email-tag">Verified email</span>
-        <span class="tag" style="background: #FCEBEB; color: #501313;">Verify employer before send</span>
+        <span class="tag-taste">Kunal reference</span>
+        <span class="tag" style="background:#F6EADF;color:#B5632B;">Relocation</span>
       </div>
       <div class="card-head">
         <div class="avatar">KK</div>
         <div class="card-name">
           <h3>Khushi Khorwal</h3>
-          <div class="card-role">AI Filmmaker · Novelty (EF-backed) · New Delhi · 4-month tenure</div>
+          <div class="card-role">AI Filmmaker @ Novelty (EF-backed AI startup) · New Delhi (relo)</div>
         </div>
-        <div class="card-score">26 / 30</div>
+        <div class="card-score">27 / 30</div>
       </div>
-      <p class="card-elevator">Already shipping AI for performance marketing at an EF-backed Indian startup. Four-month tenure means she's not entrenched — moveable for the right role.</p>
+      <p class="card-elevator">At the small-AI-startup goldmine doing performance-marketing AI ads. On your reference set. Poach + relocation.</p>
       <div class="card-meta">
         <div class="meta-item">
           <label>Tools shipped</label>
-          <div class="value">AI Design Assistants, Prompt Writing, Film Production, Video Post-Production</div>
+          <div class="value">AI design assistants · prompt writing · film production · video post</div>
         </div>
         <div class="meta-item">
-          <label>Brand work signal</label>
-          <div class="value">Currently building polished AI video ads for performance marketing campaigns</div>
-        </div>
-        <div class="meta-item">
-          <label>Audience</label>
-          <div class="value">2,131 LinkedIn connections</div>
+          <label>Brand work</label>
+          <div class="value">Performance-marketing AI ads at Novelty (EF-backed)</div>
         </div>
         <div class="meta-item">
           <label>Contact</label>
-          <div class="value"><a href="mailto:khushi.khorwal@novelty.sh">khushi.khorwal@novelty.sh</a> <span style="color: var(--success); font-size: 12px;">(verified, 90)</span></div>
+          <div class="value"><a href="mailto:khushi.khorwal@novelty.sh">khushi.khorwal@novelty.sh</a> <span style="color: var(--success); font-size: 12px;">(verified)</span></div>
         </div>
         <div class="meta-item">
           <label>Source links</label>
@@ -848,13 +1584,13 @@ We're Jhatpat Talkies, hiring an in-house AI Artist — full-time, mid-five figu
           </div>
         </div>
       </div>
-      <p class="card-why">Within the current scan, this profile surfaced as a priority match for the FT AI Artist slot — current employer in the AI ecosystem, current tools, mid-career stage. The Novelty employment suggests committed AI-native path, not adjacent. Verified email enables outreach today. <strong style="color: #791F1F;">Flag:</strong> public LinkedIn snippet still indexes her older title at AGL-Hakuhodo. Confirm current employer manually before send — Apify scrape shows Novelty (Feb 2026), Google index lagging.</p>
+      <p class="card-why">Early-stage AI startups are where the strongest AI-fluent editors are forming — Khushi is already there. Verified email lets us send today. Relocation conversation needed.</p>
       <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>4</strong></span>
         <span>Taste <strong>4</strong></span>
-        <span>Shipped <strong>4</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>3</strong> (relo)</span>
         <span>Outreach <strong>5</strong></span>
         <span>India <strong>✓</strong></span>
       </div>
@@ -863,60 +1599,62 @@ We're Jhatpat Talkies, hiring an in-house AI Artist — full-time, mid-five figu
           <span class="lbl">Pre-drafted opener</span>
           <button class="copy-btn" data-copy>Copy</button>
         </div>
-        <div class="opener-text">Khushi, hi.
+        <div class="opener-text">Khushi.
 
-Saw your AI Filmmaker role at Novelty — performance marketing AI ads is the discipline that bridges craft and outcomes, and most teams haven't figured out the bridge.
+Your AI ad work at Novelty is exactly the editor-into-AI profile we're hiring at Jhatpat Talkies. FT, mid-five-figures, Mumbai (relo conversation).
 
-We're Jhatpat Talkies (iM8 Battle of the Sexes, Zakir Khan Titli Ki Tarah). Hiring an in-house AI Artist — full-time, mid-five figures, hybrid. Open to a 20-min chat?
+20 min?
 
 — Kunal</div>
       </div>
       <div class="card-actions">
         <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
-        <button class="action-btn" data-action="reroute">Reroute to freelance</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India search · 2026-05-05</div>
+      <div class="source-trace"><strong>Trace:</strong> Kunal reference + Source 1 verification at Novelty · 2026-05-30</div>
     </article>
 
-    <article class="card" data-slot="ft-artist" data-name="mayur patil" id="mayur-patil">
-      <div class="card-head">
-        <div class="avatar">MP</div>
-        <div class="card-name">
-          <h3>Mayur Patil</h3>
-          <div class="card-role">Freelance Graphic Designer · Generative AI · Voice Over · Mumbai</div>
-        </div>
-        <div class="card-score">23 / 30</div>
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="jaideet mhatre pendulum ai video editor ugc kling higgsfield elevenlabs capcut premiere alibag" id="s2-jaideet">
+      <div class="card-tags">
+        <span class="tag featured-tag">End-to-end pipeline · Jhatpat-shaped</span>
+        <span class="tag free-tag">Freelance available</span>
       </div>
-      <p class="card-elevator">Mumbai freelancer self-identifying as cross-disciplinary (design + AI + VO + acting). The "Freelance" prefix is the green light — he's in market by definition.</p>
+      <div class="card-head">
+        <div class="avatar">JM</div>
+        <div class="card-name">
+          <h3>Jaideet Mhatre</h3>
+          <div class="card-role">AI Video Editor &amp; UGC Ad Creator · end-to-end · Pendulum House of Brands · Alibag</div>
+        </div>
+        <div class="card-score">27 / 30</div>
+      </div>
+      <p class="card-elevator">Runs the full AI ad pipeline solo — prompt eng, character gen, scene animation, voiceover, edit. Precisely Jhatpat-shaped.</p>
       <div class="card-meta">
         <div class="meta-item">
           <label>Tools shipped</label>
-          <div class="value">Graphic Design, Generative AI, Voice Over, Acting</div>
+          <div class="value">Kling · Higgsfield · ElevenLabs · CapCut · Premiere Pro</div>
         </div>
         <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">268 (mid-career, freelance band)</div>
+          <label>Brand work</label>
+          <div class="value">E-com Meta ads · real estate · medical</div>
         </div>
         <div class="meta-item">
-          <label>Status</label>
-          <div class="value">Currently freelancing — open to FT conversion</div>
+          <label>Location</label>
+          <div class="value">Alibag, Maharashtra · Mumbai-area</div>
         </div>
         <div class="meta-item">
           <label>Source links</label>
           <div class="value source-links">
-            <a href="https://www.linkedin.com/in/mayur-patil-58a9a3152" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.linkedin.com/in/jaideet-mhatre-b929a7212" target="_blank" rel="noopener">LinkedIn ↗</a>
           </div>
         </div>
       </div>
-      <p class="card-why">A polymath stack (design + AI + VO) that survives a Jhatpat brief at 3am. Freelance status means lower switching cost than a salaried candidate — he's already comfortable with project chaos.</p>
+      <p class="card-why">Tool-keyword search surfaced him — bio is dense with the exact current cinematic stack (Kling + Higgsfield + ElevenLabs). End-to-end pipeline solo means he can run a brief without three handoffs. Mumbai-area.</p>
       <div class="card-score-breakdown">
-        <span>Tools <strong>3</strong></span>
-        <span>Role <strong>4</strong></span>
-        <span>Salary band <strong>5</strong></span>
         <span>Taste <strong>4</strong></span>
-        <span>Shipped <strong>3</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>5</strong></span>
         <span>Outreach <strong>4</strong></span>
         <span>India <strong>✓</strong></span>
       </div>
@@ -925,62 +1663,304 @@ We're Jhatpat Talkies (iM8 Battle of the Sexes, Zakir Khan Titli Ki Tarah). Hiri
           <span class="lbl">Pre-drafted opener</span>
           <button class="copy-btn" data-copy>Copy</button>
         </div>
-        <div class="opener-text">Hey Mayur.
+        <div class="opener-text">Jaideet.
 
-Saw the Graphic Designer + Generative AI + Voice Over combo — that's a rare polymath stack and exactly the kind of person who survives a Jhatpat Talkies brief at 3am.
+The end-to-end AI ad pipeline (Kling/Higgsfield + character consistency + VO) is precisely what we ship at Jhatpat. FT AI Editor, Mumbai-area.
 
-Hiring an in-house AI Artist — full-time, mid-five figures, Mumbai-based. Open to converting from freelance? Quick call?
+Open to talk?
 
 — Kunal</div>
       </div>
       <div class="card-actions">
         <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
+      <div class="source-trace"><strong>Trace:</strong> Source 15a · tool-keyword search (Higgsfield / Kling) · 2026-05-31</div>
     </article>
 
-  </section>
-
-  <!-- ==================== FT Editor + AI ==================== -->
-  <section class="slot" data-slot="ft-editor">
-    <div class="slot-header">
-      <div class="slot-header-row">
-        <div>
-          <div class="section-label">Tier A · FT track</div>
-          <h2 class="section-title">FT Editor + AI Artist</h2>
-        </div>
-        <span class="slot-count">04 · ranked by taste alignment</span>
-      </div>
-    </div>
-
-    <article class="card featured" data-slot="ft-editor" data-name="shruti daga" id="shruti-daga">
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="onkar khalkar newgen digiworks veo3 kling runway midjourney heygen elevenlabs nano banana json prompt nasik marathi gujarati" id="s2-onkar">
       <div class="card-tags">
-        <span class="tag featured-tag">Surfaced as priority</span>
-        <span class="tag-taste">Taste-aligned (multi-tool · Sagar-archetype)</span>
+        <span class="tag band-tag">Band: lead-level · confirm at offer</span>
+        <span class="tag-taste">JSON prompt systems · regional language</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">OK</div>
+        <div class="card-name">
+          <h3>Onkar Khalkar</h3>
+          <div class="card-role">Senior AI Video Developer · brand ads · Newgen Digiworks · Nasik</div>
+        </div>
+        <div class="card-score">28 / 30</div>
+      </div>
+      <p class="card-elevator">Ships brand campaigns end-to-end with JSON prompt systems and regional-language fluency (Marathi, Gujarati). The most production-minded AI video profile in this scan.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Veo3 · Kling · Runway · Midjourney · Heygen · ElevenLabs · Nano Banana + Claude · Perplexity</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">Matrimony · B2B · e-learning · luggage</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Nasik, Maharashtra</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/onkar-khalkar-18b938147" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">JSON prompt systems is production engineering, not prompt-tinkering. Regional-language (Marathi/Gujarati) AI ads is a niche almost no one ships at scale in India. Likely above mid-five-fig band — confirm at offer, but worth the conversation.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>4</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Onkar.
+
+The JSON prompt systems + regional-language brand ad work is the most production-minded AI video profile I've seen this round. FT or lead AI Editor at Jhatpat, Mumbai.
+
+Worth a conversation on shape + band?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 15a · tool-keyword search (Veo3 / Kling / Runway) · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="rohan rakhewar ajmera group kling nano banana runway higgsfield elevenlabs premiere after effects mumbai" id="s2-rohan">
+      <div class="card-tags">
+        <span class="tag free-tag">Freelance-convertible</span>
+        <span class="tag">Public work links</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">RR</div>
+        <div class="card-name">
+          <h3>Rohan Rakhewar</h3>
+          <div class="card-role">Video Editor / AI Video Editor · 6 yrs · Ajmera Group · Mumbai</div>
+        </div>
+        <div class="card-score">26 / 30</div>
+      </div>
+      <p class="card-elevator">6-year editor with a named current AI stack — and the rare combination of public YouTube work links you can actually watch.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Kling · Nano Banana · Runway · Higgsfield · ElevenLabs + Premiere · After Effects</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">Ajmera Group + YouTube reels</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://in.linkedin.com/in/rohan-rakhewar-54a1aa7b" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://www.youtube.com/watch?v=uUYw9E0Xn1M" target="_blank" rel="noopener">Reel 1 ↗</a>
+            <a href="https://www.youtube.com/watch?v=o8hPtG3afZU" target="_blank" rel="noopener">Reel 2 ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Cross-validated by tool-search (Higgsfield/Kling) and the visible YouTube reels — most LinkedIn profiles at this stack have no work to show. Six years editing is the right floor.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Rohan.
+
+Six years of editing with a current Kling/Runway/Higgsfield stack is exactly the editor-into-AI profile we want at Jhatpat. FT, Mumbai.
+
+Worth 20 min?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 15a · tool-keyword search + YouTube work review · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="amit choudhary frameverse cinematic ai filmmaker gemini omni runway kling seedance reels ugc mumbai" id="s2-amit-c">
+      <div class="card-tags">
+        <span class="tag free-tag">Band-friendly</span>
+        <span class="tag-taste">Reels / UGC focus</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">AC</div>
+        <div class="card-name">
+          <h3>Amit Choudhary</h3>
+          <div class="card-role">AI Filmmaker · Cinematic Video Editor @ Frameverse · Mumbai</div>
+        </div>
+        <div class="card-score">25 / 30</div>
+      </div>
+      <p class="card-elevator">Premium short-form AI content with a named current stack. Reels / UGC ads — directly Jhatpat's territory.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Gemini Omni · Runway · Kling · Seedance 2.0</div>
+        </div>
+        <div class="meta-item">
+          <label>Brand work</label>
+          <div class="value">Short-form · reels · UGC ads at Frameverse Productions</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/amit-choudhary-b76082412" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">"Cinematic Video Editor" + Seedance 2.0 is the rare current stack — most reel-focus profiles top out at CapCut. Mumbai. Band-friendly = clean offer conversation.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>4</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Amit.
+
+The cinematic short-form AI work at Frameverse (Runway/Kling/Seedance) maps straight onto what Jhatpat ships. FT AI Editor, Mumbai.
+
+Quick call?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 10 · LinkedIn profile-search-by-services ("AI Video Editor", Mumbai) · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="aniket mahajan senior graphic designer video editor ai specialist self-employed midjourney runway kling freepik adobe mumbai" id="s2-aniket-m">
+      <div class="card-tags">
+        <span class="tag free-tag">Self-employed · freelance-convertible</span>
+      </div>
+      <div class="card-head">
+        <div class="avatar">AM</div>
+        <div class="card-name">
+          <h3>Aniket Mahajan</h3>
+          <div class="card-role">Senior Graphic Designer &amp; Video Editor · AI Specialist · Self-employed · Mumbai</div>
+        </div>
+        <div class="card-score">24 / 30</div>
+      </div>
+      <p class="card-elevator">Named current stack + senior editing + Mumbai + freelance-convertible. Thin public profile — confirm depth at first call.</p>
+      <div class="card-meta">
+        <div class="meta-item">
+          <label>Tools shipped</label>
+          <div class="value">Midjourney · Runway · Kling · Freepik AI + Adobe Suite</div>
+        </div>
+        <div class="meta-item">
+          <label>Status</label>
+          <div class="value">Self-employed · convertible to FT</div>
+        </div>
+        <div class="meta-item">
+          <label>Location</label>
+          <div class="value">Mumbai</div>
+        </div>
+        <div class="meta-item">
+          <label>Source links</label>
+          <div class="value source-links">
+            <a href="https://www.linkedin.com/in/aniket-mahajan-22ab27237" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <p class="card-why">Calibration is clean, geo is right, status is flexible. Lower-priority than the verified-work picks above — promote on first-call signal, not before.</p>
+      <div class="card-score-breakdown">
+        <span>Taste <strong>3</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>5</strong></span>
+        <span>Outreach <strong>4</strong></span>
+        <span>India <strong>✓</strong></span>
+      </div>
+      <div class="opener">
+        <div class="opener-label">
+          <span class="lbl">Pre-drafted opener</span>
+          <button class="copy-btn" data-copy>Copy</button>
+        </div>
+        <div class="opener-text">Aniket.
+
+The AI-creative stack (Midjourney/Runway/Kling) plus senior editing is a strong combo. We're hiring at Jhatpat Talkies, Mumbai — open to converting from freelance?
+
+Quick chat?
+
+— Kunal</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn approve" data-action="approve">Approve</button>
+        <button class="action-btn skip" data-action="skip">Skip</button>
+      </div>
+      <div class="source-trace"><strong>Trace:</strong> Source 15a · tool-keyword search (Midjourney / Runway / Kling) · 2026-05-31</div>
+    </article>
+
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="shruti daga pocket fm davinci hailuo kling leonardo genai vo kolkata relocation" id="s2-shruti">
+      <div class="card-tags">
+        <span class="tag band-tag">Kolkata · relo</span>
+        <span class="tag-taste">Editor-first archetype</span>
       </div>
       <div class="card-head">
         <div class="avatar">SD</div>
         <div class="card-name">
           <h3>Shruti Daga</h3>
-          <div class="card-role">Promotions Editor · Pocket FM · Kolkata · 1.7-yr tenure</div>
+          <div class="card-role">Promotions Editor @ Pocket FM · editor-first + AI · Kolkata (relo)</div>
         </div>
         <div class="card-score">25 / 30</div>
       </div>
-      <p class="card-elevator">Editor-first by training (DaVinci, audio mixing, motion graphics) with explicit Hailuo, Kling, Leonardo, GENAI vo skills. Maps closely to the FT-Editor archetype Jhatpat described.</p>
+      <p class="card-elevator">Editor-first by training (DaVinci, audio, motion) with a named AI stack layered on. The cleanest editor archetype in this scan.</p>
       <div class="card-meta">
         <div class="meta-item">
           <label>Tools shipped</label>
-          <div class="value">DaVinci Resolve, Hailuo, Kling, Leonardo, GENAI vo, Promo Production</div>
+          <div class="value">DaVinci Resolve · Hailuo · Kling · Leonardo · GENAI vo</div>
         </div>
         <div class="meta-item">
           <label>Brand work</label>
-          <div class="value">Active promo production at Pocket FM (OTT/audio at scale)</div>
+          <div class="value">OTT / audio promo at scale (Pocket FM)</div>
         </div>
         <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">33 — working, not networking</div>
+          <label>Location</label>
+          <div class="value">Kolkata · open to Mumbai relo</div>
         </div>
         <div class="meta-item">
           <label>Source links</label>
@@ -989,14 +1969,14 @@ Hiring an in-house AI Artist — full-time, mid-five figures, Mumbai-based. Open
           </div>
         </div>
       </div>
-      <p class="card-why">Out of this scan, this profile maps most directly to the FT-Editor archetype — editor-first by training with the AI tool stack layered on. The low connection count is the only weak signal: she's working, not networking. That makes her more hireable, not less, because she's not getting cold-pitched a hundred times a week. Kolkata-based, so remote/relo discussion needed.</p>
+      <p class="card-why">Editor instincts (DaVinci) plus Hailuo/Kling/Leonardo is the FT-Editor archetype. Held value through the v2 hireability gate — two of the v1 top-3 didn't.</p>
       <div class="card-score-breakdown">
-        <span>Tools <strong>5</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
         <span>Taste <strong>3</strong></span>
-        <span>Shipped <strong>4</strong></span>
-        <span>Outreach <strong>3</strong></span>
+        <span>Career <strong>5</strong></span>
+        <span>Tools <strong>5</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>3</strong> (relo)</span>
+        <span>Outreach <strong>4</strong></span>
         <span>India <strong>✓</strong></span>
       </div>
       <div class="opener">
@@ -1004,48 +1984,48 @@ Hiring an in-house AI Artist — full-time, mid-five figures, Mumbai-based. Open
           <span class="lbl">Pre-drafted opener</span>
           <button class="copy-btn" data-copy>Copy</button>
         </div>
-        <div class="opener-text">Shruti, hi.
+        <div class="opener-text">Shruti.
 
-Spotted that you're running AI promo edits at Pocket FM with Hailuo, Kling, Leonardo — that combination of editor instincts plus AI fluency is exactly the profile we're hiring for at Jhatpat Talkies.
+Editor instincts (DaVinci) plus Hailuo/Kling/Leonardo is exactly the FT-Editor profile we're hiring at Jhatpat. Mid-five-figures, Mumbai (remote/relo).
 
-iM8 Battle of the Sexes, HP Omen, the Zakir Khan piece. Editor-first, AI-second — full-time, mid-five figures, open to remote/Mumbai. Quick chat?
+20 min?
 
 — Kunal</div>
       </div>
       <div class="card-actions">
         <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
+      <div class="source-trace"><strong>Trace:</strong> Scan 1 carry-forward · Source 7 rerank held · 2026-05-31</div>
     </article>
 
-    <article class="card featured" data-slot="ft-editor" data-name="aman singh" id="aman-singh">
+    <article class="card" data-slot="ft-editor" data-scan="scan2" data-week="w22" data-name="aman singh whilter ai video editor gurugram relocation" id="s2-aman">
       <div class="card-tags">
+        <span class="tag poach-tag">Poach · early-stage AI startup</span>
         <span class="tag email-tag">Verified email</span>
-        <span class="tag">Surfaced from small-AI-startup scan</span>
+        <span class="tag" style="background:#F6EADF;color:#B5632B;">Relocation</span>
       </div>
       <div class="card-head">
         <div class="avatar">AS</div>
         <div class="card-name">
           <h3>Aman Singh</h3>
-          <div class="card-role">Video Editor · Whilter.ai · Gurugram</div>
+          <div class="card-role">Video Editor @ Whilter.ai (AI startup) · Gurugram (relo)</div>
         </div>
-        <div class="card-score">26 / 30</div>
+        <div class="card-score">25 / 30</div>
       </div>
-      <p class="card-elevator">Video editor at Whilter.ai (small AI startup) — exact archetype the brief calls for. Verified email. Already in the AI ecosystem, not yet at a salary level Jhatpat can't match.</p>
+      <p class="card-elevator">Editor at an early-stage AI startup — forming-tier talent at a band Jhatpat can match. Verified email.</p>
       <div class="card-meta">
         <div class="meta-item">
           <label>Tools shipped</label>
-          <div class="value">Video editing, AI workflows</div>
+          <div class="value">Video editing · AI workflows</div>
         </div>
         <div class="meta-item">
-          <label>Employer</label>
-          <div class="value">Whilter.ai (small AI startup)</div>
+          <label>Company</label>
+          <div class="value">Whilter.ai</div>
         </div>
         <div class="meta-item">
           <label>Contact</label>
-          <div class="value"><a href="mailto:aman.singh@whilter.ai">aman.singh@whilter.ai</a> <span style="color: var(--success); font-size: 12px;">(verified, 90)</span></div>
+          <div class="value"><a href="mailto:aman.singh@whilter.ai">aman.singh@whilter.ai</a> <span style="color: var(--success); font-size: 12px;">(verified)</span></div>
         </div>
         <div class="meta-item">
           <label>Source links</label>
@@ -1054,13 +2034,13 @@ iM8 Battle of the Sexes, HP Omen, the Zakir Khan piece. Editor-first, AI-second 
           </div>
         </div>
       </div>
-      <p class="card-why">Early-stage AI startups are where the strongest AI-fluent editors are forming right now. Aman is at the centre of that pattern. Verified email lifts him to top-pick status alongside Shruti.</p>
+      <p class="card-why">Carry-forward from Scan 1 — still holds after the v2 gate. Early-stage AI startups are the pattern; Aman is at the centre of it. Mid-five-fig + relo conversation = realistic.</p>
       <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
         <span>Taste <strong>3</strong></span>
-        <span>Shipped <strong>4</strong></span>
+        <span>Career <strong>4</strong></span>
+        <span>Tools <strong>4</strong></span>
+        <span>Open <strong>—</strong></span>
+        <span>Geo <strong>3</strong> (relo)</span>
         <span>Outreach <strong>5</strong></span>
         <span>India <strong>✓</strong></span>
       </div>
@@ -1069,432 +2049,284 @@ iM8 Battle of the Sexes, HP Omen, the Zakir Khan piece. Editor-first, AI-second 
           <span class="lbl">Pre-drafted opener</span>
           <button class="copy-btn" data-copy>Copy</button>
         </div>
-        <div class="opener-text">Aman, hi.
+        <div class="opener-text">Aman.
 
-Saw the Video Editor role at Whilter — early-stage AI startups are where the strongest AI-fluent editors are forming right now. Worth a conversation.
+Early-stage AI startups are where the strongest AI-fluent editors are forming right now. We're Jhatpat Talkies, hiring an Editor + AI Artist — FT, mid-five-figures, hybrid.
 
-We're Jhatpat Talkies (iM8 BOTS, Zakir Khan, HP Omen). Hiring an Editor + AI Artist — full-time, mid-five figures, hybrid possible. 20 min?
-
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
-    </article>
-
-    <article class="card" data-slot="ft-editor" data-name="amit m" id="amit-m">
-      <div class="card-tags">
-        <span class="tag email-tag">Verified email</span>
-      </div>
-      <div class="card-head">
-        <div class="avatar">AM</div>
-        <div class="card-name">
-          <h3>Amit M</h3>
-          <div class="card-role">AI Video Editor and Visual Artist · Kolkata</div>
-        </div>
-        <div class="card-score">24 / 30</div>
-      </div>
-      <p class="card-elevator">Mid-career AI editor + visual artist. Verified email. 1.2K connections is the sweet spot — established enough to have shipped, not so established that he's priced out.</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">AI video editing, visual artistry</div>
-        </div>
-        <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">1,276 (sweet spot)</div>
-        </div>
-        <div class="meta-item">
-          <label>Contact</label>
-          <div class="value"><a href="mailto:amit@mytasker.com">amit@mytasker.com</a> <span style="color: var(--success); font-size: 12px;">(verified, 80)</span></div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.linkedin.com/in/amitmofficial" target="_blank" rel="noopener">LinkedIn ↗</a>
-          </div>
-        </div>
-      </div>
-      <p class="card-why">Editor + visual artist combo is rare — most people pick one lane and stay. Jhatpat needs both in one person for the FT Editor + AI slot. Kolkata location means remote-first or relocation discussion.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>4</strong></span>
-        <span>Salary band <strong>4</strong></span>
-        <span>Taste <strong>4</strong></span>
-        <span>Shipped <strong>3</strong></span>
-        <span>Outreach <strong>5</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
-        </div>
-        <div class="opener-text">Amit, hi.
-
-Editor + visual artist combo is rare — most people pick one lane and stay. We're hiring for both at Jhatpat Talkies.
-
-FT Editor + AI Artist role. Mid-five figures. Open to remote/relo from Kolkata. iM8 BOTS, HP Omen, Zakir Khan are recent. 20 min?
+20 min?
 
 — Kunal</div>
       </div>
       <div class="card-actions">
         <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
         <button class="action-btn skip" data-action="skip">Skip</button>
       </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
+      <div class="source-trace"><strong>Trace:</strong> Scan 1 carry-forward · Source 7 rerank held · 2026-05-31</div>
     </article>
 
-    <article class="card" data-slot="ft-editor" data-name="dhruv prajapati" id="dhruv-prajapati">
-      <div class="card-head">
-        <div class="avatar">DP</div>
-        <div class="card-name">
-          <h3>Dhruv Prajapati</h3>
-          <div class="card-role">Video Editor · AI Creative Artist (Ads) · UGC · Jaipur</div>
-        </div>
-        <div class="card-score">24 / 30</div>
-      </div>
-      <p class="card-elevator">Editor + AI Creative Artist working specifically in ads and UGC — direct overlap with what Jhatpat ships. Jaipur location means cost-effective remote, or relocation upside.</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">Video Editing, AI Creative Direction, UGC production</div>
-        </div>
-        <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">996</div>
-        </div>
-        <div class="meta-item">
-          <label>Outreach channel</label>
-          <div class="value">LinkedIn DM</div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.linkedin.com/in/editwithdrx" target="_blank" rel="noopener">LinkedIn ↗</a>
-          </div>
-        </div>
-      </div>
-      <p class="card-why">Three disciplines pointed at the same outcome — most people leak quality on at least one of them. The ads + UGC focus directly overlaps with Jhatpat's brand-film territory.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>4</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>3</strong></span>
-        <span>Shipped <strong>4</strong></span>
-        <span>Outreach <strong>4</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
-        </div>
-        <div class="opener-text">Dhruv, hi.
-
-Editor + AI Creative Artist (Ads) + UGC — that's three disciplines pointed at the same outcome. Most people leak quality on at least one of them.
-
-Jhatpat Talkies — FT Editor + AI Artist, mid-five figures, remote-first or Mumbai. iM8 BOTS, HP Omen recent work. 20-min chat?
-
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
-    </article>
   </section>
 
-  <!-- ==================== Freelance pool ==================== -->
-  <section class="slot" data-slot="freelance">
-    <div class="slot-header">
-      <div class="slot-header-row">
-        <div>
-          <div class="section-label">Tier A · Freelance pool</div>
-          <h2 class="section-title">Project-basis bench</h2>
-        </div>
-        <span class="slot-count">04 · ranked by taste alignment</span>
+  <!-- ==================== Scan 2 · Bench (collapsed) ==================== -->
+  <details class="group" data-scan="scan2">
+    <summary>
+      <span>Bench · promote on reply</span>
+      <span class="hint">11 calibrated, work-adjacent names</span>
+    </summary>
+    <div class="group-body">
+      <p style="font-size: 13.5px; color: var(--ink-2); line-height: 1.65; margin-bottom: 18px;">Mid-band practitioners surfaced through the same gate but ranked below the FT-16. Promote any on reply — these are the depth chart.</p>
+      <div class="mini-grid">
+        <div class="minicard"><div class="mn">Rakesh Nimbole</div><div class="mr">AI Video Director · Veo3 · Runway · Kling · Maharashtra</div><a href="https://www.linkedin.com/in/ACoAAC3F3sABfRUFRPtUSr2Q_64kZDrKqe9gtdY" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Dhanashree Dhadankar</div><div class="mr">AI Video Specialist · Kling · Luma · Pune</div><a href="https://www.linkedin.com/in/ACoAABGUKt8BUCUOkoapLsktLauPskqLsd3eJgs" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Swarup Malekar</div><div class="mr">CFX Artist · AI Commercial &amp; Video · Mumbai (BlackHole)</div><a href="https://www.linkedin.com/in/swarup-malekar-7900b71a8" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Rumeet Deshmukh</div><div class="mr">AI-Driven Filmmaker · Mumbai (BlackHole)</div><a href="https://www.linkedin.com/in/rumeet-deshmukh-b7532a1aa" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Aniket Choudhary</div><div class="mr">Gen AI · Video Editor · Motion · Mumbai (Eleventh Door)</div><a href="https://www.linkedin.com/in/aniket-choudhary-a8600b1a1" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Rajul Asati</div><div class="mr">AI Animator · 3D Character Animator · Mumbai (Eleventh Door)</div><a href="https://www.linkedin.com/in/rajulasati01" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Bisal Dutta</div><div class="mr">Motion Graphics · VE · VFX Compositor · Mumbai (BlackHole)</div><a href="https://www.linkedin.com/in/bisal-dutta-67a40924b" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Sangram S</div><div class="mr">Artist · Animator · Filmmaker · Mumbai</div><a href="https://www.behance.net/sangrams" target="_blank" rel="noopener">Behance ↗</a></div>
+        <div class="minicard"><div class="mn">Divya Chipkar</div><div class="mr">Gen AI Artist @ Dashverse · Kunal reference · Mumbai</div><a href="https://www.linkedin.com/in/divya-chipkar-1118b3307" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Krishna Gulati</div><div class="mr">AI Artist · Creative Direction · Brand · Mumbai</div><span style="font-size: 12px; color: var(--ink-3);">link tbc</span></div>
+        <div class="minicard"><div class="mn">Mohit Trivedi</div><div class="mr">3D Artist · Generative AI Artist · Mumbai</div><span style="font-size: 12px; color: var(--ink-3);">link tbc</span></div>
+      </div>
+      <p style="font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-top: 16px;">Plus 5 IG snowball seeds (taste-aligned, need a profile check): @kedar_nanarkar · @its.kalpesh.more · @prasaddir · @suhasasumukh · @hardeep_gambhir</p>
+      <p style="font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-top: 8px;">Also bench (Scan 1 demotion): Mayur Patil (freelance, graphic-design + AI secondary) · Amit M (Kolkata, needs dive) · Dhruv Prajapati (Jaipur, needs dive).</p>
+    </div>
+  </details>
+
+  <!-- ==================== Scan 2 · Partnership (collapsed) ==================== -->
+  <details class="group" data-scan="scan2">
+    <summary>
+      <span>Partnership / freelance</span>
+      <span class="hint">above mid-band — useful, not core FT</span>
+    </summary>
+    <div class="group-body">
+      <p style="font-size: 13.5px; color: var(--ink-2); line-height: 1.65; margin-bottom: 18px;">Senior, founder-tier, or above-band by salary. Real value at project basis — not FT. (Arun Yadav and Kanupriya are in the Reach tier above with full cards.)</p>
+      <div class="mini-grid">
+        <div class="minicard"><div class="mn">Sarfaraaz Shaikh</div><div class="mr">Motion Graphics Supervisor · ~15–18 yr</div><a href="https://in.linkedin.com/in/sarfaraaz-shaikh" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Pratik Patil</div><div class="mr">Senior Motion Designer · 9 yr · TV / brand</div><a href="https://www.behance.net/Pratikpatilmotion" target="_blank" rel="noopener">Behance ↗</a></div>
+        <div class="minicard"><div class="mn">Deepank Sharma</div><div class="mr">AI artist / Editor / Director · 12-yr veteran @ Pocket FM</div><span style="font-size: 12px; color: var(--ink-3);">link tbc</span></div>
+        <div class="minicard"><div class="mn">Ranjey Jha</div><div class="mr">Film Director · Higgsfield · snowball seed · Mumbai</div><a href="https://www.ranjeyjha.com/" target="_blank" rel="noopener">ranjeyjha.com ↗</a></div>
+        <div class="minicard"><div class="mn">Mukul Pal</div><div class="mr">Senior VFX-into-AI · Houdini · Nuke · Runway · Delhi</div><a href="https://www.linkedin.com/in/mukulpal00" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        <div class="minicard"><div class="mn">Sumit C (@young_stan07)</div><div class="mr">Image-gen @ framing_black · viral fan-edits + ad work (reels reviewed: not the authored bar)</div><a href="https://www.instagram.com/young_stan07" target="_blank" rel="noopener">Instagram ↗</a></div>
+        <div class="minicard"><div class="mn">MUNNA Aziz</div><div class="mr">Art Director / Team Leader · Behance (above band)</div><span style="font-size: 12px; color: var(--ink-3);">link tbc</span></div>
+        <div class="minicard"><div class="mn">Rahul Jha · Mohammed Lanewala · Ashka Solanki</div><div class="mr">Above mid-band; partnership conversation only</div><span style="font-size: 12px; color: var(--ink-3);">links tbc</span></div>
       </div>
     </div>
+  </details>
 
-    <article class="card featured" data-slot="freelance" data-name="ranjey jha" id="ranjey-jha">
-      <div class="card-tags">
-        <span class="tag featured-tag">Highest-scoring profile this scan</span>
-        <span class="tag">Snowball seed</span>
-        <span class="tag-taste">Taste-aligned (Higgsfield restraint)</span>
-      </div>
-      <div class="card-head">
-        <div class="avatar">RJ</div>
-        <div class="card-name">
-          <h3>Ranjey Jha</h3>
-          <div class="card-role">Film Director · Higgsfield specialist · ranjeyjha.com</div>
+  <!-- ==================== Previous scan (collapsed) ==================== -->
+  <details class="group" data-scan="scan1" id="prev-scan-group">
+    <summary>
+      <span>Previous scan · 2026-05-08</span>
+      <span class="hint">11 candidates · Scan 1 record (superseded by Scan 2)</span>
+    </summary>
+    <div class="group-body">
+      <p style="font-size: 13.5px; color: var(--ink-2); line-height: 1.65; margin-bottom: 24px;">The original round. Two of the top-3 v1 scores (Ranjey 30/30, Arun 28) didn't survive the v2 hireability gate and moved to Partnership / Reach. Mayur Mhaskar dropped after the full apimaestro profile pull revealed a finance-grad about-section. Kanupriya promoted to the work-verified Reach tier. Kept here for transparency on what changed and why.</p>
+
+      <article class="card" data-slot="ft-artist" data-scan="scan1" data-week="w19" data-name="mayur mhaskar" id="mayur-mhaskar">
+        <div class="card-tags">
+          <span class="tag-taste">Taste-aligned (story-first · Anurag-archetype)</span>
+          <span class="tag" style="background:#FCEBEB;color:#791F1F;">Dropped in Scan 2</span>
         </div>
-        <div class="card-score">30 / 30</div>
-      </div>
-      <p class="card-elevator">Confirmed boAt Malaysia AI work, personal site, 6.5K IG, current on Higgsfield. His network already produced one of this week's freelance hires (Kanupriya).</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">Higgsfield AI · #higgsfieldspotlight features</div>
-        </div>
-        <div class="meta-item">
-          <label>Brand work</label>
-          <div class="value">boAt Malaysia, boAt Nirvana × Virat Kohli, Myntra, KitKat, Porter, Flipkart Fashion</div>
-        </div>
-        <div class="meta-item">
-          <label>Audience</label>
-          <div class="value">6,461 IG followers · 596 posts</div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.instagram.com/ranjeyjha" target="_blank" rel="noopener">Instagram ↗</a>
-            <a href="https://www.ranjeyjha.com/" target="_blank" rel="noopener">ranjeyjha.com ↗</a>
+        <div class="card-head">
+          <div class="avatar">MM</div>
+          <div class="card-name">
+            <h3>Mayur Mhaskar</h3>
+            <div class="card-role">Generative AI Artist (headline) · DROPPED in Scan 2</div>
           </div>
+          <div class="card-score">25 / 30</div>
         </div>
-      </div>
-      <p class="card-why">This is the seed for Path B (snowball). He's already at the bar Jhatpat operates at, his network will be similar quality, and his self-deprecation in his own bio matches Jhatpat's brand voice almost exactly. If he says yes once, he becomes the gateway to the rest.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>5</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>5</strong></span>
-        <span>Shipped <strong>5</strong></span>
-        <span>Outreach <strong>5</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
+        <p class="card-elevator" style="border-left-color:#C04D2C;">Scan 2 finding: full apimaestro profile pull revealed the About section reads as a Finance grad seeking fintech/data roles behind the "Gen AI Filmmaker" headline. Headline-vs-about contradiction — moved to Dropped.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Original tools (claimed)</label><div class="value">Generative AI · LLM Integration · Content Writing · Screenwriting</div></div>
+          <div class="meta-item"><label>Why dropped</label><div class="value">Finance grad behind a "Gen AI Filmmaker" headline (miscalibrated)</div></div>
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/mayur-mhaskar" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
         </div>
-        <div class="opener-text">Hey Ranjey.
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05 — superseded by Source 11 apimaestro verification 2026-05-31</div>
+      </article>
 
-Saw the boAt Malaysia AI series — the way you got the AI to feel like a real spec film instead of a Higgsfield tutorial is the shift most people are still missing.
-
-Jhatpat Talkies (iM8 Battle of the Sexes, Zakir Khan, HP Omen) — building out a freelance bench. Project-basis. What you'd be open to and how you usually price?
-
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · IG hashtag scrape #aifilmmaker + India filter · 2026-05-05</div>
-    </article>
-
-    <article class="card featured" data-slot="freelance" data-name="arun yadav" id="arun-yadav">
-      <div class="card-tags">
-        <span class="tag featured-tag">IMDb credits verified</span>
-        <span class="tag">Active production work</span>
-        <span class="tag-taste">Taste-aligned (cinema-first)</span>
-      </div>
-      <div class="card-head">
-        <div class="avatar">AY</div>
-        <div class="card-name">
-          <h3>Arun Yadav</h3>
-          <div class="card-role">DOP · Bulbule Films · Mumbai · Higgsfield+Kling+Seedance specialist</div>
+      <article class="card featured" data-slot="ft-artist" data-scan="scan1" data-week="w19" data-name="khushi khorwal" id="khushi-khorwal-s1">
+        <div class="card-tags">
+          <span class="tag featured-tag">Carried to Scan 2</span>
+          <span class="tag email-tag">Verified email</span>
         </div>
-        <div class="card-score">28 / 30</div>
-      </div>
-      <p class="card-elevator">Tool fluency match is exact — Higgsfield + Kling + Seedance in his headline. 5-year DOP track adds the cinematographic depth — frames before he prompts.</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">Higgsfield Cinema Studio, Kling AI, Seedance 2.0</div>
-        </div>
-        <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">1,301</div>
-        </div>
-        <div class="meta-item">
-          <label>Tenure</label>
-          <div class="value">5+ years at Bulbule Films (freelance DOP)</div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.linkedin.com/in/arunyadavdop" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a href="https://www.imdb.com/name/nm10161040/" target="_blank" rel="noopener">IMDb ↗</a>
-            <a href="https://www.facebook.com/arunyadavdop/" target="_blank" rel="noopener">Facebook (work credits) ↗</a>
+        <div class="card-head">
+          <div class="avatar">KK</div>
+          <div class="card-name">
+            <h3>Khushi Khorwal</h3>
+            <div class="card-role">AI Filmmaker · Novelty (EF-backed) · New Delhi</div>
           </div>
+          <div class="card-score">26 / 30</div>
         </div>
-        <div class="meta-item" style="grid-column: 1 / -1;">
-          <label>Recent work — verified</label>
-          <div class="value">IMDb credits: <em>Better Life Foundation</em> (2016), <em>Vintage Boys</em> (2021), <em>The Shameless</em> (2024). Recent ad-film: JMD Mobile Gwalior — direction & DOP, agency Intracolor, production Filmix. Active for 5+ years on real productions, not just AI tooling.</div>
+        <p class="card-elevator">Already shipping AI for performance marketing at an EF-backed Indian startup. Held value through the v2 gate — promoted into the Scan 2 FT-Editor track.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Tools shipped</label><div class="value">AI design assistants · prompt writing · film production · post</div></div>
+          <div class="meta-item"><label>Contact</label><div class="value"><a href="mailto:khushi.khorwal@novelty.sh">khushi.khorwal@novelty.sh</a></div></div>
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/khushi-khorwal-a694491b7" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://novelty.sh/" target="_blank" rel="noopener">Novelty ↗</a></div></div>
         </div>
-      </div>
-      <p class="card-why">Three of Jhatpat's four named platforms in his headline alone — but the IMDb credits are the bigger signal. He's not a prompt operator who picked up "Kling" last week. He's been on real productions for nearly a decade, and added the AI stack to an existing cinematographic foundation. That ordering is exactly what Jhatpat hires for.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>5</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>5</strong></span>
-        <span>Shipped <strong>4</strong></span>
-        <span>Outreach <strong>4</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
-        </div>
-        <div class="opener-text">Hey Arun.
+        <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
+      </article>
 
-Higgsfield + Kling + Seedance in your headline, but also IMDb credits going back to Better Life Foundation in 2016 — that ordering is rare. Most people on the AI side don't have a real production track underneath; you do.
-
-Jhatpat Talkies (iM8 BOTS, HP Omen, Zakir Khan) — building a freelance bench for ad-film projects. Project-based. Your usual project shape and pricing?
-
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
-    </article>
-
-    <article class="card featured" data-slot="freelance" data-name="kanupriya sharma" id="kanupriya">
-      <div class="card-tags">
-        <span class="tag new-tag">New · Snowball</span>
-        <span class="tag email-tag">Public email</span>
-        <span class="tag-taste">Taste-aligned (VFX hand on AI)</span>
-      </div>
-      <div class="card-head">
-        <div class="avatar">KS</div>
-        <div class="card-name">
-          <h3>Kanupriya Sharma</h3>
-          <div class="card-role">Visual Effects Artist · Behance · IG @knuvisuals</div>
+      <article class="card" data-slot="ft-artist" data-scan="scan1" data-week="w19" data-name="mayur patil" id="mayur-patil">
+        <div class="card-tags">
+          <span class="tag" style="background:var(--surface-2);color:var(--ink-2);">Moved to bench (Scan 2)</span>
         </div>
-        <div class="card-score">27 / 30</div>
-      </div>
-      <p class="card-elevator">Surfaced from snowball — appears as collaborator on three of Ranjey Jha's recent boAt Malaysia AI projects. VFX-trained, public email in IG bio, Behance portfolio.</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">VFX, AI workflows, Higgsfield (via Ranjey collabs)</div>
-        </div>
-        <div class="meta-item">
-          <label>Audience</label>
-          <div class="value">3,884 IG followers · 522 posts</div>
-        </div>
-        <div class="meta-item">
-          <label>Contact</label>
-          <div class="value"><a href="mailto:knuvisuals@gmail.com">knuvisuals@gmail.com</a> <span style="color: var(--success); font-size: 12px;">(public)</span></div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.instagram.com/knuvisuals" target="_blank" rel="noopener">Instagram ↗</a>
-            <a href="https://behance.net/knuvisuals" target="_blank" rel="noopener">Behance ↗</a>
+        <div class="card-head">
+          <div class="avatar">MP</div>
+          <div class="card-name">
+            <h3>Mayur Patil</h3>
+            <div class="card-role">Freelance Graphic Designer · Generative AI · VO · Mumbai</div>
           </div>
+          <div class="card-score">23 / 30</div>
         </div>
-      </div>
-      <p class="card-why">She doesn't appear in any hashtag scrape because her bio doesn't say "AI artist." She's only visible if you trace Ranjey's collaborator network — which is exactly what Path B was designed to do. VFX hand on AI work is the layer Jhatpat ships and is hard to find separately.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>5</strong></span>
-        <span>Shipped <strong>4</strong></span>
-        <span>Outreach <strong>4</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
+        <p class="card-elevator">Scan 2 reclassification: graphic-design primary, AI secondary — moved to freelance bench (not FT-Artist).</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/mayur-patil-58a9a3152" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
         </div>
-        <div class="opener-text">Hey Kanupriya.
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
+      </article>
 
-Saw your work on the boAt Malaysia AI series with Ranjey — VFX hand on AI work is exactly the layer Jhatpat ships and is hard to find separately.
-
-Building out a freelance bench for ad-film projects. Project-basis. Worth a chat about how you typically work?
-
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 2 · IG snowball from @ranjeyjha caption mentions · 2026-05-05</div>
-    </article>
-
-    <article class="card" data-slot="freelance" data-name="mukul pal" id="mukul-pal">
-      <div class="card-tags">
-        <span class="tag-taste">Taste-aligned (production craft)</span>
-      </div>
-      <div class="card-head">
-        <div class="avatar">MK</div>
-        <div class="card-name">
-          <h3>Mukul Pal</h3>
-          <div class="card-role">VFX Compositor + AI Filmmaker · Houdini+Nuke+Runway · Delhi</div>
-        </div>
-        <div class="card-score">26 / 30</div>
-      </div>
-      <p class="card-elevator">Senior VFX-into-AI hybrid. Houdini + Nuke is rare — only comes from years on real productions. The freelance layer that finishes the work AI generation alone won't carry.</p>
-      <div class="card-meta">
-        <div class="meta-item">
-          <label>Tools shipped</label>
-          <div class="value">Houdini FX, Nuke, Runway ML, AI + VFX workflows</div>
-        </div>
-        <div class="meta-item">
-          <label>Connections</label>
-          <div class="value">498</div>
-        </div>
-        <div class="meta-item">
-          <label>Status</label>
-          <div class="value">Freelance compositor</div>
-        </div>
-        <div class="meta-item">
-          <label>Source links</label>
-          <div class="value source-links">
-            <a href="https://www.linkedin.com/in/mukulpal00" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <article class="card featured" data-slot="ft-editor" data-scan="scan1" data-week="w19" data-name="shruti daga" id="shruti-daga-s1">
+        <div class="card-tags"><span class="tag featured-tag">Carried to Scan 2</span></div>
+        <div class="card-head">
+          <div class="avatar">SD</div>
+          <div class="card-name">
+            <h3>Shruti Daga</h3>
+            <div class="card-role">Promotions Editor · Pocket FM · Kolkata</div>
           </div>
+          <div class="card-score">25 / 30</div>
         </div>
-      </div>
-      <p class="card-why">Houdini + Nuke is senior VFX training — the kind that only comes from years on real productions. Pairing it with Runway is the rare bridge between film-grade post and AI-native output. For projects where AI generation alone won't carry the spot, he's the layer that finishes the work.</p>
-      <div class="card-score-breakdown">
-        <span>Tools <strong>4</strong></span>
-        <span>Role <strong>5</strong></span>
-        <span>Salary band <strong>5</strong></span>
-        <span>Taste <strong>4</strong></span>
-        <span>Shipped <strong>4</strong></span>
-        <span>Outreach <strong>4</strong></span>
-        <span>India <strong>✓</strong></span>
-      </div>
-      <div class="opener">
-        <div class="opener-label">
-          <span class="lbl">Pre-drafted opener</span>
-          <button class="copy-btn" data-copy>Copy</button>
+        <p class="card-elevator">DaVinci + Hailuo + Kling + Leonardo + GENAI vo. Editor-first archetype. Held value into Scan 2 FT-Editor.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/shruti-daga" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
         </div>
-        <div class="opener-text">Mukul.
+        <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
+      </article>
 
-Nuke + Houdini + Runway — senior VFX-into-AI is rare. We need it on the freelance bench at Jhatpat Talkies for projects where AI alone doesn't carry it.
+      <article class="card featured" data-slot="ft-editor" data-scan="scan1" data-week="w19" data-name="aman singh" id="aman-singh-s1">
+        <div class="card-tags"><span class="tag featured-tag">Carried to Scan 2</span><span class="tag email-tag">Verified email</span></div>
+        <div class="card-head">
+          <div class="avatar">AS</div>
+          <div class="card-name">
+            <h3>Aman Singh</h3>
+            <div class="card-role">Video Editor · Whilter.ai · Gurugram</div>
+          </div>
+          <div class="card-score">26 / 30</div>
+        </div>
+        <p class="card-elevator">Video editor at Whilter.ai (small AI startup). Verified email. Carried into Scan 2 FT-Editor.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Contact</label><div class="value"><a href="mailto:aman.singh@whilter.ai">aman.singh@whilter.ai</a></div></div>
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/zalcrone" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
+      </article>
 
-Project basis. Real briefs. Worth a chat?
+      <article class="card" data-slot="ft-editor" data-scan="scan1" data-week="w19" data-name="amit m" id="amit-m">
+        <div class="card-tags"><span class="tag" style="background:var(--surface-2);color:var(--ink-2);">Moved to bench (Scan 2)</span></div>
+        <div class="card-head">
+          <div class="avatar">AM</div>
+          <div class="card-name">
+            <h3>Amit M</h3>
+            <div class="card-role">AI Video Editor and Visual Artist · Kolkata</div>
+          </div>
+          <div class="card-score">24 / 30</div>
+        </div>
+        <p class="card-elevator">Scan 2 reclassification: mytasker.com (BPO) employer flag on AI authenticity — bench / needs-dive.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Contact</label><div class="value"><a href="mailto:amit@mytasker.com">amit@mytasker.com</a></div></div>
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/amitmofficial" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "AI video editor" India · 2026-05-05</div>
+      </article>
 
-— Kunal</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn approve" data-action="approve">Approve</button>
-        <button class="action-btn" data-action="edit">Edit opener</button>
-        <button class="action-btn skip" data-action="skip">Skip</button>
-      </div>
-      <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
-    </article>
-  </section>
+      <article class="card" data-slot="ft-editor" data-scan="scan1" data-week="w19" data-name="dhruv prajapati" id="dhruv-prajapati">
+        <div class="card-tags"><span class="tag" style="background:var(--surface-2);color:var(--ink-2);">Moved to bench (Scan 2)</span></div>
+        <div class="card-head">
+          <div class="avatar">DP</div>
+          <div class="card-name">
+            <h3>Dhruv Prajapati</h3>
+            <div class="card-role">Video Editor · AI Creative Artist (Ads) · UGC · Jaipur</div>
+          </div>
+          <div class="card-score">24 / 30</div>
+        </div>
+        <p class="card-elevator">Scan 2 reclassification: bench / needs-dive — geo + portfolio depth flags pending.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/editwithdrx" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · LinkedIn "Generative AI artist" India · 2026-05-05</div>
+      </article>
 
-  <!-- ==================== References + Network Seeds (moved to bottom) ==================== -->
+      <article class="card featured" data-slot="freelance" data-scan="scan1" data-week="w19" data-name="ranjey jha" id="ranjey-jha">
+        <div class="card-tags"><span class="tag featured-tag">v1 30/30 · moved to Partnership in Scan 2</span></div>
+        <div class="card-head">
+          <div class="avatar">RJ</div>
+          <div class="card-name">
+            <h3>Ranjey Jha</h3>
+            <div class="card-role">Film Director · Higgsfield specialist · ranjeyjha.com</div>
+          </div>
+          <div class="card-score">30 / 30</div>
+        </div>
+        <p class="card-elevator">v1's top scorer. v2 gate: own studio + brand deals + monetised 6.5K IG = founder-tier, above FT band. Moved to Partnership.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.instagram.com/ranjeyjha" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.ranjeyjha.com/" target="_blank" rel="noopener">ranjeyjha.com ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 1 · IG hashtag scrape #aifilmmaker + India filter · 2026-05-05</div>
+      </article>
+
+      <article class="card featured" data-slot="freelance" data-scan="scan1" data-week="w19" data-name="arun yadav s1" id="arun-yadav-s1">
+        <div class="card-tags"><span class="tag featured-tag">v1 28 · moved to Reach tier in Scan 2</span></div>
+        <div class="card-head">
+          <div class="avatar">AY</div>
+          <div class="card-name">
+            <h3>Arun Yadav</h3>
+            <div class="card-role">DOP · Bulbule Films · Higgsfield+Kling+Seedance · Mumbai</div>
+          </div>
+          <div class="card-score">28 / 30</div>
+        </div>
+        <p class="card-elevator">v1's #2. v2 gate: senior DOP, IMDb credits — band-mismatch for FT. Promoted to the Reach tier above as work-unreviewed (AI reels not yet seen).</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/arunyadavdop" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.imdb.com/name/nm10161040/" target="_blank" rel="noopener">IMDb ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
+      </article>
+
+      <article class="card featured" data-slot="freelance" data-scan="scan1" data-week="w19" data-name="kanupriya s1" id="kanupriya-s1">
+        <div class="card-tags"><span class="tag featured-tag">Promoted to Reach tier in Scan 2</span></div>
+        <div class="card-head">
+          <div class="avatar">KS</div>
+          <div class="card-name">
+            <h3>Kanupriya Sharma</h3>
+            <div class="card-role">Visual Effects Artist · Behance · IG @knuvisuals</div>
+          </div>
+          <div class="card-score">27 / 30</div>
+        </div>
+        <p class="card-elevator">Surfaced from snowball as Ranjey's collaborator. Reels reviewed in Scan 2 — work-verified, promoted to Reach tier.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.instagram.com/knuvisuals" target="_blank" rel="noopener">Instagram ↗</a><a href="https://behance.net/knuvisuals" target="_blank" rel="noopener">Behance ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 2 · IG snowball from @ranjeyjha · 2026-05-05</div>
+      </article>
+
+      <article class="card" data-slot="freelance" data-scan="scan1" data-week="w19" data-name="mukul pal" id="mukul-pal">
+        <div class="card-tags"><span class="tag" style="background:var(--surface-2);color:var(--ink-2);">Moved to Partnership (Scan 2)</span></div>
+        <div class="card-head">
+          <div class="avatar">MK</div>
+          <div class="card-name">
+            <h3>Mukul Pal</h3>
+            <div class="card-role">VFX Compositor + AI Filmmaker · Houdini+Nuke+Runway · Delhi</div>
+          </div>
+          <div class="card-score">26 / 30</div>
+        </div>
+        <p class="card-elevator">Senior VFX-into-AI hybrid. v2 gate: senior tier, moved to Partnership / freelance project-basis.</p>
+        <div class="card-meta">
+          <div class="meta-item"><label>Source links</label><div class="value source-links"><a href="https://www.linkedin.com/in/mukulpal00" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
+        </div>
+        <div class="source-trace"><strong>Trace:</strong> Sweep 1 · LinkedIn "AI filmmaker" India · 2026-05-05</div>
+      </article>
+
+    </div>
+  </details>
+
+  <!-- ==================== References + Network Seeds (preserved) ==================== -->
   <section id="references">
 <section class="intel" style="border-color: var(--accent);">
     <div class="section-label" style="color: var(--accent);">Taste calibration · researched + applied</div>
@@ -1539,7 +2371,7 @@ Project basis. Real briefs. Worth a chat?
           </div>
           <div style="font-size: 12px; color: var(--ink-3); font-family: var(--mono);">Mumbai AIFF winner ₹12L</div>
         </div>
-        <div style="font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Role:</strong> Founder & Director <strong style="color: var(--ink);">@framing_black</strong>. Workshop speaker for Runway. Background: sole breadwinner at 17, paid school fees through catering, shot wedding films at ₹10K, pivoted to AI when no market existed.</div>
+        <div style="font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Role:</strong> Founder &amp; Director <strong style="color: var(--ink);">@framing_black</strong>. Workshop speaker for Runway. Background: sole breadwinner at 17, paid school fees through catering, shot wedding films at ₹10K, pivoted to AI when no market existed.</div>
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Signature work:</strong> Mumbai AI Film Festival winner (₹12L prize). Brand work for Piramal Finance. Workshops at Network School Singapore.</div>
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Tools used:</strong> 8+ Creative Partner Programs — Runway, ThinkDiffusion, Freepik, Pika, Weavy, Pixverse, Higgsfield, Pimento. Multi-tool fluency at partner level.</div>
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.6;"><strong style="color: var(--ink);">Why this reference matters:</strong> Studio-builder model. Framing Black has a 4-person team (image, music, VFX). The structure Jhatpat is hiring for.</div>
@@ -1563,7 +2395,7 @@ Project basis. Real briefs. Worth a chat?
             <div style="font-size: 17px; font-weight: 500;">David Clark · @theblasian</div>
           </div>
         </div>
-        <div style="font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Role:</strong> Co-founder & Chief Creative Officer <strong style="color: var(--ink);">@promiseai</strong> (backed by Peter Chernin, Andreessen Horowitz). Director, Futurist, 2024 Cannes panelist. Featured in WSJ, Variety, Forbes, THR.</div>
+        <div style="font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px;"><strong style="color: var(--ink);">Role:</strong> Co-founder &amp; Chief Creative Officer <strong style="color: var(--ink);">@promiseai</strong> (backed by Peter Chernin, Andreessen Horowitz). Director, Futurist, 2024 Cannes panelist. Featured in WSJ, Variety, Forbes, THR.</div>
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.6;"><strong style="color: var(--ink);">Why this reference matters:</strong> Industry-validated. The "AI is now legitimate cinema" benchmark — Cannes, WSJ-level recognition. Sets aspirational ceiling.</div>
       </a>
 
@@ -1593,10 +2425,10 @@ Project basis. Real briefs. Worth a chat?
     </div>
   </section>
 
-<section class="intel" style="border-color: var(--accent);">
+  <section class="intel" style="border-color: var(--accent);">
     <div class="section-label" style="color: var(--accent);">Network seeds · extracted from references</div>
     <h3>Pre-validated names for next week's scrape</h3>
-    <p style="font-size: 14px; color: var(--ink-2); margin-bottom: 24px; line-height: 1.7;">Post-analysis of Anurag's and Sagar's recent posts surfaced these collaborator handles. Each is taste-pre-filtered by association with the references — they're who the reference creators choose to work with. These become next week's snowball seeds.</p>
+    <p style="font-size: 14px; color: var(--ink-2); margin-bottom: 24px; line-height: 1.7;">Post-analysis of Anurag's and Sagar's recent posts surfaced these collaborator handles. Each is taste-pre-filtered by association with the references — they're who the reference creators choose to work with. In Scan 2 we qualified the IG-five (see drops + bench notes); Sumit C and Prasad Gori graduated honestly to bench/partnership after a reels review (NOT reference tier).</p>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
 
@@ -1607,17 +2439,17 @@ Project basis. Real briefs. Worth a chat?
           <a href="https://www.instagram.com/chandan_perla" target="_blank" rel="noopener" style="color: var(--info); display: block;">@chandan_perla</a>
           <a href="https://www.instagram.com/suhasasumukh" target="_blank" rel="noopener" style="color: var(--info); display: block;">@suhasasumukh</a>
         </div>
-        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Festival-validated. 72-hour AI film co-creators with Anurag.</div>
+        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Festival-validated. 72-hour AI film co-creators with Anurag. Scan 2: cluster identified as founder-tier (Bangalore lab) — partnership only.</div>
       </div>
 
       <div style="background: var(--surface-2); border-radius: 12px; padding: 16px;">
         <div style="font-size: 11px; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">Framing Black studio team</div>
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.8;">
-          <a href="https://www.instagram.com/young_stan07" target="_blank" rel="noopener" style="color: var(--info); display: block;">@young_stan07 — image generation</a>
+          <a href="https://www.instagram.com/young_stan07" target="_blank" rel="noopener" style="color: var(--info); display: block;">@young_stan07 — image generation (Scan 2: bench, NOT reference tier)</a>
           <a href="https://www.instagram.com/its.kalpesh.more" target="_blank" rel="noopener" style="color: var(--info); display: block;">@its.kalpesh.more — music + VO</a>
-          <a href="https://www.instagram.com/kedar_nanarkar" target="_blank" rel="noopener" style="color: var(--info); display: block;">@kedar_nanarkar — VFX/Paint</a>
+          <a href="https://www.instagram.com/kedar_nanarkar" target="_blank" rel="noopener" style="color: var(--info); display: block;">@kedar_nanarkar — VFX/Paint (Scan 2: bench, junior)</a>
         </div>
-        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Studio production team. Each role-specialised. Working at Sagar's bar.</div>
+        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Studio production team. Reels reviewed in Scan 2 — none promote to FT bar.</div>
       </div>
 
       <div style="background: var(--surface-2); border-radius: 12px; padding: 16px;">
@@ -1625,10 +2457,10 @@ Project basis. Real briefs. Worth a chat?
         <div style="font-size: 13px; color: var(--ink-2); line-height: 1.8;">
           <a href="https://www.instagram.com/aditi_tibarewal" target="_blank" rel="noopener" style="color: var(--info); display: block;">@aditi_tibarewal</a>
           <a href="https://www.instagram.com/atomeist" target="_blank" rel="noopener" style="color: var(--info); display: block;">@atomeist</a>
-          <a href="https://www.instagram.com/prasaddir" target="_blank" rel="noopener" style="color: var(--info); display: block;">@prasaddir</a>
+          <a href="https://www.instagram.com/prasaddir" target="_blank" rel="noopener" style="color: var(--info); display: block;">@prasaddir (Scan 2: bench — AI tool demos/tutorials, not authored films)</a>
           <a href="https://www.instagram.com/ixitimmyixi" target="_blank" rel="noopener" style="color: var(--info); display: block;">@ixitimmyixi</a>
         </div>
-        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Appear in both Anurag's and Sagar's recent posts. Connector-tier — likely active in the Mumbai AIFF scene.</div>
+        <div style="font-size: 12px; color: var(--ink-3); margin-top: 8px; font-style: italic;">Connector-tier in the Mumbai AIFF scene. Useful for snowball, not direct FT.</div>
       </div>
 
       <div style="background: var(--surface-2); border-radius: 12px; padding: 16px;">
@@ -1644,45 +2476,61 @@ Project basis. Real briefs. Worth a chat?
     </div>
 
     <div style="margin-top: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: 12px; font-size: 13px; color: var(--ink-2); line-height: 1.7;">
-      <strong style="color: var(--ink);">What happens next week:</strong> The seven names in the top two boxes (ASTITVA team + Framing Black team) get profile-scraped on the next Monday cycle. They're already pre-validated by association — winning India's Best AI Film 2025 or shipping with Sagar's studio is a stronger signal than any bio keyword. Expected yield: 3–5 confirmed taste-aligned candidates added to the freelance bench, possibly 1–2 FT-track if seniority fits.
+      <strong style="color: var(--ink);">Scan 2 outcome:</strong> the IG seeds were qualified honestly. Cluster top tier is founders (suhasasumukh, chandan_perla, hardeep_gambhir = Bangalore lab); studios morphicstudios / localhosthq = companies; ixitimmyixi = RunwayML US staff. Real Mumbai taste-aligned ICs surfaced via this network are bench/partnership, not FT. Production rule going forward: IG seeds are for partnerships and taste-mapping, not first-time discovery of hireable cinematic ICs.
     </div>
   </section>
   </section>
 
-  <!-- ==================== Drops ==================== -->
+  <!-- ==================== Drops (updated for Scan 2) ==================== -->
   <section class="drops">
     <div class="section-label">Drops · who didn't make the cut</div>
-    <h3>HR-rigour pass</h3>
-    <p class="drops-sub">Each pill below is a candidate we considered and consciously cut. Reason is in the chip. Click any to revive — the reason becomes a flag we can argue against.</p>
+    <h3>Full transparency on every cut</h3>
+    <p class="drops-sub">Each pill is a candidate we considered and consciously dropped. Click any to revive — the reason becomes a flag we can argue against.</p>
 
     <div style="display: flex; flex-direction: column; gap: 16px;">
 
       <div>
-        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Founders · won't accept FT mid-5-fig</div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #791F1F; margin-bottom: 8px;">New in Scan 2 · headline-vs-about contradictions and false-positives</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <a href="https://www.linkedin.com/in/mayur-mhaskar" target="_blank" rel="noopener" class="filter-btn" style="text-decoration: none;">Mayur Mhaskar <span style="color: var(--ink-3); margin-left: 6px;">· Finance grad behind "Gen AI Filmmaker" headline</span></a>
+          <span class="filter-btn">PANKAJ BIRANJE <span style="color: var(--ink-3); margin-left: 6px;">· Behance all commercial graphic design under "AI Artist" title</span></span>
+          <span class="filter-btn">Parv Jain <span style="color: var(--ink-3); margin-left: 6px;">· 19, hobbyist, work in hibernation</span></span>
+          <span class="filter-btn">Rishon Miranda <span style="color: var(--ink-3); margin-left: 6px;">· miscalibrated · bridge profile but no shipped work</span></span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Behance "AI"-keyword false positives · graphic designers / founders tagged "AI"</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="filter-btn">Varun Kapoor <span style="color: var(--ink-3); margin-left: 6px;">· Graphic Designer / Illustrator</span></span>
+          <span class="filter-btn">Kazim Shaikh <span style="color: var(--ink-3); margin-left: 6px;">· Graphic Designer / 3D Artist</span></span>
+          <span class="filter-btn">Shahid Khan <span style="color: var(--ink-3); margin-left: 6px;">· 8+yr commercial GD</span></span>
+          <span class="filter-btn">Chandrashekhar Rane <span style="color: var(--ink-3); margin-left: 6px;">· Co-Founder MUMBAA STUDIOS · NID</span></span>
+          <span class="filter-btn">Bufferrring <span style="color: var(--ink-3); margin-left: 6px;">· Agency, not an individual</span></span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Taste-tier dropped after reels review · NOT reference quality</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <a href="https://www.instagram.com/prasaddir" target="_blank" rel="noopener" class="filter-btn" style="text-decoration: none;">Prasad Gori <span style="color: var(--ink-3); margin-left: 6px;">· Reels = AI tool demos / tutorials, not authored films</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Carry-forward from Scan 1 · still dropped</div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
           <a href="https://www.linkedin.com/in/brijesh-patel-epicberry" target="_blank" rel="noopener" class="filter-btn" style="text-decoration: none;">Brijesh Patel <span style="color: var(--ink-3); margin-left: 6px;">· founder of epicberry.ai</span></a>
-          <a href="https://www.linkedin.com/in/upframe" target="_blank" rel="noopener" class="filter-btn" style="text-decoration: none;">Jamal Husain <span style="color: var(--ink-3); margin-left: 6px;">· 9-yr founder Avail3d UpFrame</span></a>
+          <a href="https://www.linkedin.com/in/upframe" target="_blank" rel="noopener" class="filter-btn" style="text-decoration: none;">Jamal Husain <span style="color: var(--ink-3); margin-left: 6px;">· 9-yr founder · UpFrame</span></a>
+          <span class="filter-btn">Alok Mehta <span style="color: var(--ink-3); margin-left: 6px;">· Strategist (band)</span></span>
+          <span class="filter-btn">Swarnab Roy <span style="color: var(--ink-3); margin-left: 6px;">· Sr 3D Animator (band)</span></span>
+          <span class="filter-btn">Harsh Acharya <span style="color: var(--ink-3); margin-left: 6px;">· multiple disciplines, no AI focus</span></span>
+          <span class="filter-btn">Hemant Kushwaha <span style="color: var(--ink-3); margin-left: 6px;">· thin signal</span></span>
         </div>
       </div>
 
       <div>
-        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Senior tier · likely above ₹50–60K band</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="filter-btn">Alok Mehta <span style="color: var(--ink-3); margin-left: 6px;">· Strategist, 1.7K conn</span></span>
-          <span class="filter-btn">Swarnab Roy <span style="color: var(--ink-3); margin-left: 6px;">· Sr 3D Animator</span></span>
-          <span class="filter-btn">Harsh Acharya <span style="color: var(--ink-3); margin-left: 6px;">· 2.7K conn, multiple disciplines</span></span>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Thin signal · not enough to act on</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-          <span class="filter-btn">Hemant Kushwaha <span style="color: var(--ink-3); margin-left: 6px;">· risky email, 119 conn</span></span>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Reserve · viable but lower priority than the 12 picks</div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;">Reserve · viable depth chart (Scan 1)</div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
           <span class="filter-btn">Akash Pandey</span>
           <span class="filter-btn">Uday Shukla</span>
@@ -1700,34 +2548,34 @@ Project basis. Real briefs. Worth a chat?
     </div>
 
     <div style="margin-top: 20px; padding: 14px 18px; background: var(--bg); border-radius: 8px; font-size: 12px; color: var(--ink-3); line-height: 1.6;">
-      Total drops: <strong style="color: var(--ink-2);">16 candidates</strong>. Each tagged by the rule that surfaced the cut. To revive one, flag the name and we argue the case in next week's calibration.
+      Scan 2 total drops: <strong style="color: var(--ink-2);">10 new + 16 carry-forward</strong>. Methodology audit (<code>jhatpat-methodology-audit-2026-05-31.md</code>) documents the gate that produced each cut.
     </div>
   </section>
 
-  <!-- ==================== Pipeline ==================== -->
+  <!-- ==================== Pipeline summary ==================== -->
   <section>
     <div class="section-label">Pipeline</div>
-    <h2 class="section-title">This week's summary</h2>
+    <h2 class="section-title">Scan 2 summary</h2>
     <div class="pipeline-grid">
       <div class="stat-card">
         <label>FT AI Artist</label>
-        <div class="num">03</div>
-        <div class="sub">Score 23–26 · 1 verified email</div>
+        <div class="num">08</div>
+        <div class="sub">Score 24–28 · 4 open-to-work</div>
       </div>
       <div class="stat-card">
-        <label>FT Editor + AI</label>
-        <div class="num">04</div>
-        <div class="sub">Score 24–26 · 2 verified emails</div>
+        <label>FT AI Editor</label>
+        <div class="num">08</div>
+        <div class="sub">Score 24–28 · 2 verified emails</div>
       </div>
       <div class="stat-card">
-        <label>Freelance pool</label>
-        <div class="num">04</div>
-        <div class="sub">Score 26–30 · 1 public email</div>
+        <label>Reach tier</label>
+        <div class="num">02</div>
+        <div class="sub">Kanupriya (work-verified) · Arun (band TBC)</div>
       </div>
       <div class="stat-card">
-        <label>Reserve depth</label>
-        <div class="num">15+</div>
-        <div class="sub">If first batch doesn't convert</div>
+        <label>Bench + Partnership</label>
+        <div class="num">19+</div>
+        <div class="sub">11 bench · 8 partnership · 5 IG snowball</div>
       </div>
     </div>
   </section>
@@ -1737,17 +2585,26 @@ Project basis. Real briefs. Worth a chat?
 <footer>
   <div class="container">
     <div class="footer-row">
-      <div>Last scan 2026-05-08 · Friday-call feedback applied 2026-05-11 · HR-rigour + taste calibration · Discord + Vimeo + IMDb + personal-site source links wired</div>
+      <div>Scan 2 · 2026-05-31 · v2 hireability gate applied · Tool-keyword search added · 6 sources cross-validated · Methodology audit in project outputs</div>
       <div>
         Built by <a href="https://cal.com/refracto">Refracto</a> ·
         Pipeline runs weekly ·
-        Methodology: <a href="#">read the playbook</a>
+        Approvals sync to your endpoint <span id="whStatus" style="font-family: var(--mono); font-size: 11px; color: var(--ink-3);"></span>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
+  /* ============================================================
+     CONFIG — webhook for button-click logging.
+     Default: the active Google Apps Script endpoint that writes
+     to the linked Sheet. Set to "" to run local-only.
+     Payload: { timestamp, candidate, action, week, scan }
+     ============================================================ */
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw1KzT-3RrbCWphvs7dJI5IUg91bs_pHm6-5efiw43-yee1YkAl8sKUzXnsdrCZTIOhjQ/exec";
+  const DEFAULT_WEEK = "w22";
+
   // Local state for approvals/skips
   const STATE_KEY = 'jhatpat_pipeline_w19';
   let state = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
@@ -1765,8 +2622,30 @@ Project basis. Real briefs. Worth a chat?
   }
   applyState();
 
+  function logToWebhook(payload) {
+    const status = document.getElementById('whStatus');
+    if (!WEBHOOK_URL) {
+      if (status) status.textContent = '· local-only mode';
+      return;
+    }
+    try {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        if (status) status.textContent = '· synced ' + new Date().toLocaleTimeString();
+      }).catch(e => {
+        console.log(e);
+        if (status) status.textContent = '· sync failed (saved locally)';
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   // Action buttons
-  const LOG_WEBHOOK = 'https://script.google.com/macros/s/AKfycbw1KzT-3RrbCWphvs7dJI5IUg91bs_pHm6-5efiw43-yee1YkAl8sKUzXnsdrCZTIOhjQ/exec';
   document.querySelectorAll('.action-btn[data-action]').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.card');
@@ -1781,22 +2660,14 @@ Project basis. Real briefs. Worth a chat?
       localStorage.setItem(STATE_KEY, JSON.stringify(state));
       applyState();
 
-      try {
-        const candidateEl = card.querySelector('h3');
-        fetch(LOG_WEBHOOK, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            timestamp: new Date().toISOString(),
-            candidate: candidateEl ? candidateEl.textContent.trim() : '',
-            action: wasActive ? ('un-' + action) : action,
-            week: 'w19'
-          })
-        }).catch(e => console.log(e));
-      } catch (e) {
-        console.log(e);
-      }
+      const candidateEl = card.querySelector('h3');
+      logToWebhook({
+        timestamp: new Date().toISOString(),
+        candidate: candidateEl ? candidateEl.textContent.trim() : '',
+        action: wasActive ? ('un-' + action) : action,
+        week: card.dataset.week || DEFAULT_WEEK,
+        scan: card.dataset.scan || 'scan2'
+      });
     });
   });
 
@@ -1819,10 +2690,11 @@ Project basis. Real briefs. Worth a chat?
   });
 
   // Filters
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
   const cards = document.querySelectorAll('.card');
   const slots = document.querySelectorAll('.slot');
   let currentFilter = 'all';
+  let currentScan = 'scan2';
 
   function applyFilter() {
     const search = document.getElementById('search').value.trim().toLowerCase();
@@ -1830,7 +2702,10 @@ Project basis. Real briefs. Worth a chat?
       const slot = card.dataset.slot;
       const name = card.dataset.name || '';
       const id = card.id;
+      const scan = card.dataset.scan || 'scan2';
       let visible = true;
+      // Scan switch — Scan 1 cards live inside the prev-scan details, but
+      // we still toggle FT-Artist/FT-Editor filter visibility.
       if (currentFilter === 'approved') {
         visible = state[id] === 'approve';
       } else if (currentFilter !== 'all') {
@@ -1855,11 +2730,22 @@ Project basis. Real briefs. Worth a chat?
   });
   document.getElementById('search').addEventListener('input', applyFilter);
 
+  // Scan switcher — opens/closes the Previous-scan details and scrolls
+  const scanSelect = document.getElementById('scanSelect');
+  const prevScanGroup = document.getElementById('prev-scan-group');
+  scanSelect.addEventListener('change', e => {
+    currentScan = e.target.value;
+    if (currentScan === 'scan1' && prevScanGroup) {
+      prevScanGroup.open = true;
+      prevScanGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      if (prevScanGroup) prevScanGroup.open = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 
-
-  // Wrap each .opener block in collapsible <details>
+  // Wrap each .opener block in a collapsible <details>
   document.querySelectorAll('.opener').forEach(opener => {
-    // Skip if already wrapped
     if (opener.parentElement && opener.parentElement.classList.contains('opener-collapse')) return;
     const details = document.createElement('details');
     details.className = 'opener-collapse';
@@ -1868,7 +2754,6 @@ Project basis. Real briefs. Worth a chat?
     details.appendChild(summary);
     opener.parentNode.insertBefore(details, opener);
     details.appendChild(opener);
-    // Hide the now-redundant internal label
     const internalLabel = opener.querySelector('.opener-label .lbl');
     if (internalLabel) internalLabel.style.display = 'none';
   });
@@ -1883,7 +2768,7 @@ Project basis. Real briefs. Worth a chat?
     });
   }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
 
-  document.querySelectorAll('.card, .intel, .drops, .stat-card').forEach(el => {
+  document.querySelectorAll('.card, .intel, .drops, .stat-card, details.group, .honest-banner').forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
   });
