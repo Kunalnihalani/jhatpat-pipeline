@@ -3850,7 +3850,15 @@ How do you usually work?
   const viewTabs = document.querySelectorAll('.view-tab[data-view-tab]');
   function setView(view) {
     document.querySelectorAll('[data-view]').forEach(el => {
-      el.classList.toggle('hidden-view', el.dataset.view !== view);
+      const matches = el.dataset.view === view;
+      el.classList.toggle('hidden-view', !matches);
+      // If we just revealed a section that contains reveal-animated children
+      // that never intersected (because they were display:none), force them
+      // visible — otherwise they stay opacity:0 and the section looks empty.
+      if (matches) {
+        el.querySelectorAll('.reveal').forEach(c => c.classList.add('in'));
+        if (el.classList.contains('reveal')) el.classList.add('in');
+      }
     });
     viewTabs.forEach(t => t.classList.toggle('active', t.dataset.viewTab === view));
   }
