@@ -1114,7 +1114,13 @@
         || ''
       );
       const roleEl = card.querySelector('.card-role, .cc-role');
+      // Pick the first source link (IG / Behance / portfolio / LinkedIn) for the
+      // "reach-out link" column the Sheet's Apps Script expects.
+      const firstLink = card.querySelector('.source-links a, .cc-links a');
+      const reachOutLink = firstLink ? firstLink.href : '';
+
       logToWebhook({
+        // New schema (kept for forward-compat)
         candidateId: id,
         name: candidateName,
         role: roleEl ? roleEl.textContent.replace(/\s+/g, ' ').trim() : '',
@@ -1122,7 +1128,10 @@
         week: card.dataset.week || DEFAULT_WEEK,
         category: card.dataset.category || DEFAULT_CATEGORY,
         action: wasActive ? ('un-' + action) : action,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        // Legacy keys the existing Sheet's Apps Script writes to its columns
+        candidate: candidateName,
+        'reach-out link': reachOutLink
       });
     });
   });
